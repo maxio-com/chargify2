@@ -9,11 +9,11 @@ module Chargify2
     property :response
     
     def request
-      Request.new(self[:request])
+      Request.new(self[:request] || {})
     end
     
     def response
-      Response.new(self[:response])
+      Response.new(self[:response] || {})
     end
     
     def successful?
