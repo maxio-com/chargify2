@@ -13,16 +13,27 @@ require 'jeweler'
 Jeweler::Tasks.new do |gem|
   # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
   gem.name = "chargify2"
-  gem.homepage = "http://github.com/moklett/chargify2"
+  gem.homepage = "http://github.com/chargify/chargify2"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = %Q{Chargify API V2 Ruby Wrapper}
+  gem.description = %Q{}
   gem.email = "michael@webadvocate.com"
   gem.authors = ["Michael Klett"]
   # Include your dependencies below. Runtime dependencies are required when using your gem,
   # and development dependencies are only needed for development (ie running rake tasks, tests, etc)
-  #  gem.add_runtime_dependency 'jabber4r', '> 0.1'
-  #  gem.add_development_dependency 'rspec', '> 1.2.3'
+  gem.add_runtime_dependency 'httparty'
+  gem.add_runtime_dependency 'addressable'
+  gem.add_runtime_dependency 'hashie'
+  gem.add_runtime_dependency 'hashery'
+  
+  gem.add_development_dependency "rspec", "~> 2.3.0"
+  gem.add_development_dependency "yard", "~> 0.6.0"
+  gem.add_development_dependency "bundler", "~> 1.0.0"
+  gem.add_development_dependency "jeweler", "~> 1.5.2"
+  gem.add_development_dependency "rcov", ">= 0"
+  gem.add_development_dependency "webmock"
+  gem.add_development_dependency "vcr"
+  gem.add_development_dependency "capybara"
 end
 Jeweler::RubygemsDotOrgTasks.new
 
