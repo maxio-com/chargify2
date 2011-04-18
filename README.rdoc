@@ -1,6 +1,7 @@
-= chargify2
+= Chargify V2 API Ruby Wrapper
 
-Description goes here.
+    chargify = Chargify2::Client.new(:api_id => "f43ee0a0-4356-012e-0f5f-0025009f114a", :api_password => 'direct777test', :base_uri => "http://app.chargify.local/api/v2")
+    call = chargify.calls.read("4dbc42ecc21d93ec8f9bb581346dd41c5c3c2cf5")
 
 == Contributing to chargify2
  
@@ -14,6 +15,6 @@ Description goes here.
 
 == Copyright
 
-Copyright (c) 2011 Michael Klett. See LICENSE.txt for
+Copyright (c) 2011 Chargify. See LICENSE.txt for
 further details.
 

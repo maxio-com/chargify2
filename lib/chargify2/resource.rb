@@ -1,7 +1,13 @@
 module Chargify2
+  # Resource orchestrates the connection from the Client to the Chargify API Resources, available
+  # at the Resource URIs.
+  #
+  # Resource implements CRUD operations on the Chargify API Resources: {Resource.create}, {Resource.read},
+  # {Resource.update}, {Resource.delete}, and {Resource.list}.
   class Resource
     include HTTParty
 
+    base_uri Chargify2::Client::BASE_URI
     headers 'Content-Type' => 'application/json', 'Accept' => 'application/json'
     format :json
     
@@ -16,6 +22,18 @@ module Chargify2
       "#{base_uri}/#{@path}"
     end
     
+    def uri
+      self.class.uri
+    end
+    
+    # Define the representation class for this resource
+    def self.representation(klass = nil)
+      unless klass.nil?
+        @@representation = klass
+      end
+      @@representation ||= nil
+    end
+    
     def initialize(client)
       @client = client
       @username = client.api_id
@@ -27,7 +45,8 @@ module Chargify2
     
     def self.read(id, query = {})
       response = get("#{uri}/#{id}", :query => query.empty? ? nil : query)
-      Chargify2::Call.new(response['call'].symbolize_keys)
+      response_hash = response[self.class.to_s.downcase] || {}
+      representation.new(response_hash.symbolize_keys)
     end
     
     def read(id, query = {})

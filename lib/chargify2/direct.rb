@@ -4,6 +4,7 @@ module Chargify2
     
     def initialize(client)
       @client = client
+      validate_client
     end
     
     def secure_parameters(params = {})
@@ -17,7 +18,17 @@ module Chargify2
     def self.signature(message, secret)
       OpenSSL::HMAC.hexdigest(OpenSSL::Digest::Digest.new('sha1'), secret, message)
     end
-        
+    
+    private
+    
+    def validate_client
+      unless client.is_a?(Client)
+        raise ArgumentError.new("Direct.new requires a Client as an argument")
+      end
+    end
+
+    # There is no need to instantiate a SecureParameters instance directly.  Use Direct#secure_parameters
+    # instead.
     class SecureParameters
       attr_reader :api_id
       attr_reader :timestamp
@@ -29,10 +40,13 @@ module Chargify2
         args = hash.symbolize_keys
         
         @api_id     = client.api_id
+        @secret     = client.api_secret
+
         @timestamp  = args[:timestamp]
         @nonce      = args[:nonce]
         @data       = args[:data]
-        @secret     = client.api_secret
+        
+        validate_args
       end
       
       def to_form_inputs
@@ -53,7 +67,10 @@ module Chargify2
       end
       
       def encoded_data
-        Rack::Utils.build_nested_query(data? ? data : {})
+        hash = data? ? data : {}
+        uri = Addressable::URI.new
+        uri.query_values = hash
+        uri.query
       end
       
       def signature
@@ -64,35 +81,56 @@ module Chargify2
       private
       
       def h(s)
-        Rack::Utils.escape_html(s)
+        ERB::Util.html_escape(s)
       end
       
+      def validate_args
+        if data && !data.is_a?(Hash)
+          raise ArgumentError.new("The 'data' must be provided as a Hash (you passed a #{data.class})")
+        end
+        
+        unless api_id && secret && api_id.to_s.length > 0 && secret.to_s.length > 0
+          # raise ArgumentError
+        end
+      end
     end
     
+    # There is no need to instantiate a Result instance directly.  Use Direct#results instead.
     class Result
       attr_reader :api_id
       attr_reader :status_code
       attr_reader :result_code
       attr_reader :call_id
       attr_reader :secret
+      attr_reader :signature
       
       def initialize(params, client)
         args = params.symbolize_keys
         
         @api_id       = client.api_id
+        @secret       = client.api_secret
+
         @status_code  = args[:status_code]
         @result_code  = args[:result_code]
         @call_id      = args[:call_id]
-        @secret       = client.api_secret
+        @signature    = args[:signature]
       end
       
       def verified?
         message = "#{api_id}#{status_code}#{result_code}#{call_id}"
-        Direct.signature(message, secret)
+        Direct.signature(message, secret) == signature
       end
       
       def success?
         status_code.to_s == '200'
+      end
+      
+      private
+      
+      def validate_args
+        if data && !data.is_a?(Hash)
+          raise ArgumentError.new("The 'data' must be provided as a Hash (you passed a #{data.class})")
+        end
       end
     end
   end

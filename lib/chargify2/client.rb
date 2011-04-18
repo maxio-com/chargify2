@@ -31,7 +31,7 @@ module Chargify2
     end
     
     def calls
-      Chargify2::Resources::Call.new(self)
+      Chargify2::CallResource.new(self)
     end
   end
 end

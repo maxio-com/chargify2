@@ -1,5 +1,6 @@
 source "http://rubygems.org"
 gem 'httparty'
+gem 'addressable'
 gem 'hashie'
 gem 'hashery'
 
@@ -12,4 +13,6 @@ group :development do
   gem "jeweler", "~> 1.5.2"
   gem "rcov", ">= 0"
   gem "webmock"
+  gem "vcr"
+  gem "capybara"
 end
