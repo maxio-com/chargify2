@@ -11,8 +11,8 @@ module Chargify2
       SecureParameters.new(params, client)
     end
 
-    def result(params = {})
-      Result.new(params, client)
+    def response_parameters(params = {})
+      ResponseParameters.new(params, client)
     end
 
     def self.signature(message, secret)
@@ -90,14 +90,16 @@ module Chargify2
         end
         
         unless api_id && secret && api_id.to_s.length > 0 && secret.to_s.length > 0
-          # raise ArgumentError
+          raise ArgumentError.new("SecureParameters require connection to a Client - was one given?")
         end
       end
     end
     
-    # There is no need to instantiate a Result instance directly.  Use Direct#results instead.
-    class Result
+    # There is no need to instantiate a ResponseParameters instance directly.  Use Direct#response_parameters instead.
+    class ResponseParameters
       attr_reader :api_id
+      attr_reader :timestamp
+      attr_reader :nonce
       attr_reader :status_code
       attr_reader :result_code
       attr_reader :call_id
@@ -111,13 +113,17 @@ module Chargify2
         @secret       = client.api_secret
 
         @status_code  = args[:status_code]
+        @timestamp    = args[:timestamp]
+        @nonce        = args[:nonce]
         @result_code  = args[:result_code]
         @call_id      = args[:call_id]
         @signature    = args[:signature]
+        
+        validate_args
       end
       
       def verified?
-        message = "#{api_id}#{status_code}#{result_code}#{call_id}"
+        message = "#{api_id}#{timestamp}#{nonce}#{status_code}#{result_code}#{call_id}"
         Direct.signature(message, secret) == signature
       end
       
@@ -128,8 +134,8 @@ module Chargify2
       private
       
       def validate_args
-        if data && !data.is_a?(Hash)
-          raise ArgumentError.new("The 'data' must be provided as a Hash (you passed a #{data.class})")
+        unless api_id && secret && api_id.to_s.length > 0 && secret.to_s.length > 0
+          raise ArgumentError.new("ResponseParameters require connection to a Client - was one given?")
         end
       end
     end
