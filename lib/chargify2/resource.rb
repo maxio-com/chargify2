@@ -45,7 +45,7 @@ module Chargify2
     
     def self.read(id, query = {})
       response = get("#{uri}/#{id}", :query => query.empty? ? nil : query)
-      response_hash = response.parsed_response[representation.to_s.downcase.split('::').last] || {}
+      response_hash = response[representation.to_s.downcase.split('::').last] || {}
       representation.new(response_hash.symbolize_keys)
     end
     
