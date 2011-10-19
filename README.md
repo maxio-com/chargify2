@@ -1,23 +1,45 @@
-Chargify V2 API Ruby Wrapper
+Chargify API V2 Ruby Wrapper [![build status](https://secure.travis-ci.org/chargify/chargify2.png)](http://travis-ci.org/chargify/chargify2)
 ============================
 
-    chargify = Chargify2::Client.new(:api_id => "f43ee0a0-4356-012e-0f5f-0025009f114a", :api_password => 'direct777test', :base_uri => "http://app.chargify.local/api/v2")
-    call = chargify.calls.read("4dbc42ecc21d93ec8f9bb581346dd41c5c3c2cf5")
+This gem is meant to be used with the [Chargify Direct API](http://docs.chargify.com/chargify-direct-introduction).
 
-Contributing to Chargify2
--------------------------
+You'll need Chargify Direct credentials to interact with the Chargify V2 API, which you can get by [opening a support ticket](http://help.chargify.com/anonymous_requests/new).
+
+Getting Started
+---------------
+
+Install the gem, or add it to your Gemfile:
+    
+    gem install chargify2
+
+Check out the [Chargify Direct Example App](https://github.com/chargify/chargify_direct_example) for usage examples.
+
+
+Sample Code
+-----------
+
+``` ruby
+chargify = Chargify2::Client.new(:api_id => "f43ee0a0-4356-012e-0f5f-0025009f114a", :api_password => 'direct777test', :base_uri => "http://app.chargify.local/api/v2")
+call = chargify.calls.read("4dbc42ecc21d93ec8f9bb581346dd41c5c3c2cf5")
+```
+
+Contributing
+------------
+
+**What to contribute:**
+
+* Check out the [issues][issues] page for bugs
+* Refactor something that looks messy to you!
+
+**How to contribute:**
+
+* Fork the project.
+* Implement your feature on a topic branch.
+* Add tests for it.  This is important so we don't break it in a future version unintentionally.
+* Commit, do not mess with Rakefile, version, or history.  If you want to have your own version, that's fine but bump version in acommit by itself that we can ignore when we pull.
+* Send us a pull request.
  
-* Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet
-* Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it
-* Fork the project
-* Start a feature/bugfix branch
-* Commit and push until you are happy with your contribution
-* Make sure to add tests for it. This is important so I don't break it in a future version unintentionally.
-* Please try not to mess with the Rakefile, version, or history. If you want to have your own version, or is otherwise necessary, that is fine, but please isolate to its own commit so I can cherry-pick around it.
-
 Copyright
 ---------
 
-Copyright (c) 2011 Chargify. See LICENSE.txt for
-further details.
-
+Copyright (c) 2011 Chargify. See LICENSE.txt for further details.
