@@ -12,11 +12,12 @@ Install the gem, or add it to your Gemfile:
     
     gem install chargify2
 
-Check out the [Chargify Direct Example App](https://github.com/chargify/chargify_direct_example) for usage examples.
-
-
 Sample Code
 -----------
+
+Check out the [Chargify Direct Example App](https://github.com/chargify/chargify_direct_example) for usage examples.
+
+View a *call* resource:
 
 ``` ruby
 chargify = Chargify2::Client.new(:api_id => "f43ee0a0-4356-012e-0f5f-0025009f114a", :api_password => 'direct777test', :base_uri => "http://app.chargify.local/api/v2")
@@ -28,7 +29,7 @@ Contributing
 
 **What to contribute:**
 
-* Check out the [issues][issues] page for bugs
+* Check out the project's [issues page](https://github.com/chargify/chargify2/issues)
 * Refactor something that looks messy to you!
 
 **How to contribute:**
