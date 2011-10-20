@@ -48,5 +48,51 @@ module Chargify2
         CallResource.read('123').should be_a(Call)
       end
     end
+
+    context "#request" do
+      before(:each) do
+        @client = Client.new(valid_client_credentials)
+        @call_resource = CallResource.new(@client)
+      end
+      
+      it "returns a Request object" do
+        WebMock.stub_request(:get, "https://#{@client.api_id}:#{@client.api_password}@api.chargify.com/api/v2/calls/123")
+        call = CallResource.read('123')
+        call.request.should be_a(Chargify2::Call::Request)
+      end
+    end
+    
+    context "#response" do
+      before(:each) do
+        @client = Client.new(valid_client_credentials)
+        @call_resource = CallResource.new(@client)
+      end
+      
+      it "returns a Response object" do
+        WebMock.stub_request(:get, "https://#{@client.api_id}:#{@client.api_password}@api.chargify.com/api/v2/calls/123")
+        call = CallResource.read('123')
+        call.response.should be_a(Chargify2::Call::Response)
+      end
+    end
+
+    context "#errors" do
+      before(:each) do
+        @client = Client.new(valid_client_credentials)
+        @call_resource = CallResource.new(@client)
+      end
+      
+      it "returns an array of hashes if errors exist" do
+        WebMock.stub_request(:get, "https://#{@client.api_id}:#{@client.api_password}@api.chargify.com/api/v2/calls/123")
+        call = CallResource.read('123')
+        call.errors.should be_a(Array)
+        call.errors.first.should be_a(Hash)
+      end
+      
+      it "returns an empty array if there are no errors" do
+        WebMock.stub_request(:get, "https://#{@client.api_id}:#{@client.api_password}@api.chargify.com/api/v2/calls/123")
+        call = CallResource.read('123')
+        call.errors.should == []
+      end
+    end
   end
 end
