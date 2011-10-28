@@ -1,9 +1,12 @@
 module Chargify2
-  class Call < Hashie::Dash
+  class Site < Hashie::Dash
     property :id
-    property :api_id
-    property :timestamp
-    property :nonce
+    property :test_mode
+    property :currency
+    property :seller_id
+    property :configured_gateway
+    property :name
+    property :subdomain
     property :success
     property :request
     property :response
@@ -28,3 +31,4 @@ module Chargify2
     class Response < OpenCascade; end
   end
 end
+
