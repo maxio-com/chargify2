@@ -15,4 +15,5 @@ group :development do
   gem "webmock"
   gem "vcr"
   gem "capybara"
+  gem "ruby-debug19"
 end
