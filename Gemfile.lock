@@ -2,6 +2,7 @@ GEM
   remote: http://rubygems.org/
   specs:
     addressable (2.2.5)
+    archive-tar-minitar (0.5.2)
     capybara (0.4.1.2)
       celerity (>= 0.7.9)
       culerity (>= 0.2.4)
@@ -14,6 +15,7 @@ GEM
     celerity (0.8.9)
     childprocess (0.1.8)
       ffi (~> 1.0.6)
+    columnize (0.3.4)
     crack (0.1.8)
     culerity (0.2.15)
     diff-lcs (1.1.2)
@@ -29,6 +31,8 @@ GEM
       git (>= 1.2.5)
       rake
     json_pure (1.5.1)
+    linecache19 (0.5.12)
+      ruby_core_source (>= 0.1.4)
     mime-types (1.16)
     nokogiri (1.4.4)
     rack (1.2.2)
@@ -44,6 +48,16 @@ GEM
     rspec-expectations (2.3.0)
       diff-lcs (~> 1.1.2)
     rspec-mocks (2.3.0)
+    ruby-debug-base19 (0.11.25)
+      columnize (>= 0.3.1)
+      linecache19 (>= 0.5.11)
+      ruby_core_source (>= 0.1.4)
+    ruby-debug19 (0.11.6)
+      columnize (>= 0.3.1)
+      linecache19 (>= 0.5.11)
+      ruby-debug-base19 (>= 0.11.19)
+    ruby_core_source (0.1.5)
+      archive-tar-minitar (>= 0.5.2)
     rubyzip (0.9.4)
     selenium-webdriver (0.1.4)
       childprocess (>= 0.1.7)
@@ -71,6 +85,7 @@ DEPENDENCIES
   jeweler (~> 1.5.2)
   rcov
   rspec (~> 2.3.0)
+  ruby-debug19
   vcr
   webmock
   yard (~> 0.6.0)

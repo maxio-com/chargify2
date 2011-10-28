@@ -1,12 +1,12 @@
 module Chargify2
   class Direct
     attr_reader :client
-    
+
     def initialize(client)
       @client = client
       validate_client
     end
-    
+
     def secure_parameters(params = {})
       SecureParameters.new(params, client)
     end
@@ -18,9 +18,9 @@ module Chargify2
     def self.signature(message, secret)
       OpenSSL::HMAC.hexdigest(OpenSSL::Digest::Digest.new('sha1'), secret, message)
     end
-    
+
     private
-    
+
     def validate_client
       unless client.is_a?(Client)
         raise ArgumentError.new("Direct.new requires a Client as an argument")
@@ -35,20 +35,20 @@ module Chargify2
       attr_reader :nonce
       attr_reader :data
       attr_reader :secret
-      
+
       def initialize(hash, client)
         args = hash.symbolize_keys
-        
+
         @api_id     = client.api_id
         @secret     = client.api_secret
 
         @timestamp  = args[:timestamp]
         @nonce      = args[:nonce]
         @data       = args[:data]
-        
+
         validate_args
       end
-      
+
       def to_form_inputs
         output = []
         output << %{<input type="hidden" name="secure[api_id]" value="#{h(api_id)}"/>}
@@ -59,42 +59,42 @@ module Chargify2
         output.join("\n")
       end
 
-      %w(timestamp nonce data).each do |method|
+      %w(timestamp nonce data api_id secret).each do |method|
         define_method("#{method}?") do
           value = self.send(method)
-          value && value.to_s.strip.length > 0
+          value && !(value.is_a?(Hash) ? value : value.to_s.strip).empty?
         end
       end
-      
+
       def encoded_data
         hash = data? ? data : {}
         uri = Addressable::URI.new
         uri.query_values = hash
         uri.query
       end
-      
+
       def signature
         message = "#{api_id}#{timestamp}#{nonce}#{encoded_data}"
         Direct.signature(message, secret)
       end
-      
+
       private
-      
+
       def h(s)
         ERB::Util.html_escape(s)
       end
-      
+
       def validate_args
         if data && !data.is_a?(Hash)
           raise ArgumentError.new("The 'data' must be provided as a Hash (you passed a #{data.class})")
         end
-        
-        unless api_id && secret && api_id.to_s.length > 0 && secret.to_s.length > 0
+
+        unless api_id? && secret?
           raise ArgumentError.new("SecureParameters require connection to a Client - was one given?")
         end
       end
     end
-    
+
     # There is no need to instantiate a ResponseParameters instance directly.  Use Direct#response_parameters instead.
     class ResponseParameters
       attr_reader :api_id
@@ -105,10 +105,10 @@ module Chargify2
       attr_reader :call_id
       attr_reader :secret
       attr_reader :signature
-      
+
       def initialize(params, client)
         args = params.symbolize_keys
-        
+
         @api_id       = client.api_id
         @secret       = client.api_secret
 
@@ -118,21 +118,21 @@ module Chargify2
         @result_code  = args[:result_code]
         @call_id      = args[:call_id]
         @signature    = args[:signature]
-        
+
         validate_args
       end
-      
+
       def verified?
         message = "#{api_id}#{timestamp}#{nonce}#{status_code}#{result_code}#{call_id}"
         Direct.signature(message, secret) == signature
       end
-      
+
       def success?
         status_code.to_s == '200'
       end
-      
+
       private
-      
+
       def validate_args
         unless api_id && secret && api_id.to_s.length > 0 && secret.to_s.length > 0
           raise ArgumentError.new("ResponseParameters require connection to a Client - was one given?")
