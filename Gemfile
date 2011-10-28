@@ -15,5 +15,5 @@ group :development do
   gem "webmock"
   gem "vcr"
   gem "capybara"
-  gem "ruby-debug19"
+  gem "ruby-debug19", :platforms => [:ruby_19]
 end
