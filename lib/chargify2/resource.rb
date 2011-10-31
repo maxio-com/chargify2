@@ -50,17 +50,33 @@ module Chargify2
       self.class.basic_auth(@username, @password)
     end
 
+    def self.create(query)
+      response = self.post(uri, :query => { :site => query })
+
+      resource = if response.code.to_s =~ /^2/
+                   self.representation.new(response.parsed_response[self.representation_name])
+                 else
+                   false
+                 end
+
+      resource
+    end
+
+    def create(query)
+      self.class.create(query)
+    end
+
     def self.list(query = {})
       response = self.get(uri, :query => query.empty? ? nil : query)
 
       resources = if response.code.to_s =~ /^2/
-        response.parsed_response.inject([]) do |responses, response_hash|
-          responses << self.representation.new(response_hash[self.representation_name].symbolize_keys)
-          responses
-        end
-      else
-        []
-      end
+                    response.parsed_response.inject([]) do |responses, response_hash|
+                      responses << self.representation.new(response_hash[self.representation_name].symbolize_keys)
+                      responses
+                    end
+                  else
+                    []
+                  end
 
       resources
     end
@@ -73,11 +89,11 @@ module Chargify2
       response = self.get("#{uri}/#{id}", :query => query.empty? ? nil : query)
 
       resource = if response.code.to_s =~ /^2/
-        response_hash = response[self.representation_name] || {}
-        representation.new(response_hash.symbolize_keys)
-      else
-        nil
-      end
+                   response_hash = response[self.representation_name] || {}
+                   representation.new(response_hash.symbolize_keys)
+                 else
+                   nil
+                 end
 
       resource
     end

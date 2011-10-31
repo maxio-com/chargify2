@@ -39,16 +39,22 @@ module Chargify2
     end
 
     describe "creating a new Site resource" do
+      let(:attributes) { { :name => "Acme Test", :subdomain => "acme-test" } }
+
       it "makes a POST request to 'https://api.chargify.com/api/v2/sites'" do
-        pending
+        WebMock.stub_request(:post, /https?:\/\/api.chargify.com\/api\/v2\/sites\??(.*)/).to_return(:body => '{"site":{"test_mode":false,"currency":"USD","seller_id":2,"configured_gateway":"bogus","name":"My Site","subdomain":"acme","id":2},"result":{"errors":[],"status_code":"200","result_code":"2000"}}', :status => '201 Created')
+        SiteResource.create(attributes)
+        a_request(:post, 'https://api.chargify.com/api/v2/sites?site%5Bname%5D=Acme%20Test&site%5Bsubdomain%5D=acme-test').should have_been_made.once
       end
 
-      it "returns a Site representation when it creates the resource successfully" do
-        pending
+      it "returns a site representation when it creates the resource successfully" do
+        WebMock.stub_request(:post, /https?:\/\/api.chargify.com\/api\/v2\/sites\??(.*)/).to_return(:body => '{"site":{"test_mode":false,"currency":"USD","seller_id":2,"configured_gateway":"bogus","name":"My Site","subdomain":"acme","id":2},"result":{"errors":[],"status_code":"200","result_code":"2000"}}', :status => '201 Created')
+        SiteResource.create(attributes).should be_a(Site)
       end
 
       it "returns false when the resource can't be created" do
-        pending
+        WebMock.stub_request(:post, /https?:\/\/api.chargify.com\/api\/v2\/sites\??(.*)/).to_return(:status => '422 Unprocessable Entity')
+        SiteResource.create({}).should be_false
       end
     end
 
