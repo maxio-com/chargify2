@@ -66,6 +66,21 @@ module Chargify2
       self.class.create(query)
     end
 
+    def self.update(id, query)
+      response = self.put("#{uri}/#{id}", :query => { :site => query })
+
+      resource = if response.code.to_s =~ /^2/
+                   self.representation.new(response.parsed_response[self.representation_name])
+                 else
+                   false
+                 end
+      resource
+    end
+
+    def update(id, query)
+      self.class.update(id, query)
+    end
+
     def self.list(query = {})
       response = self.get(uri, :query => query.empty? ? nil : query)
 
