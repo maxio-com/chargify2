@@ -10,7 +10,49 @@ module Chargify2
       SiteResource.representation.should == Site
     end
 
-    describe "#read" do
+    describe "deleting a Site resource" do
+      it "makes a DELETE request to 'https://api.chargify.com/api/v2/sites'" do
+        pending
+      end
+
+      it "returns true after the resource is successfully deleted" do
+        pending
+      end
+
+      it "returns false when the resource can't be deleted" do
+        pending
+      end
+    end
+
+    describe "updating a Site resource" do
+      it "makes a PUT request to 'https://api.chargify.com/api/v2/sites'" do
+        pending
+      end
+
+      it "returns a Site representation when it updates the resource successfully" do
+        pending
+      end
+
+      it "returns false when the resource can't be created" do
+        pending
+      end
+    end
+
+    describe "creating a new Site resource" do
+      it "makes a POST request to 'https://api.chargify.com/api/v2/sites'" do
+        pending
+      end
+
+      it "returns a Site representation when it creates the resource successfully" do
+        pending
+      end
+
+      it "returns false when the resource can't be created" do
+        pending
+      end
+    end
+
+    describe "reading a Site resource" do
       it "performs a GET request to 'https://api.chargify.com/api/v2/sites/123' (without authentication) when called with '123'" do
         WebMock.stub_request(:get, 'https://api.chargify.com/api/v2/sites/123')
         SiteResource.read('123')
@@ -28,7 +70,7 @@ module Chargify2
       end
     end
 
-    describe "#list" do
+    describe "retrieving a list of Site resources" do
       it "performs a GET request to 'https://api.chargify.com/api/v2/sites' (without authentication) when called with '123'" do
         WebMock.stub_request(:get, 'https://api.chargify.com/api/v2/sites').to_return(:body => "[]")
         SiteResource.list
