@@ -116,6 +116,20 @@ module Chargify2
     def read(id, query = {})
       self.class.read(id, query)
     end
+
+    def self.destroy(id, query = {})
+      response = self.delete("#{uri}/#{id}", :query => query.empty? ? nil :query)
+
+      if response.code.to_s =~ /^2/
+        true
+      else
+        false
+      end
+    end
+
+    def destroy(id, query = {})
+      self.class.destroy(id, query)
+    end
   end
 
   class ResourceError < StandardError; end

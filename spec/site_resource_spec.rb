@@ -12,15 +12,19 @@ module Chargify2
 
     describe "deleting a Site resource" do
       it "makes a DELETE request to 'https://api.chargify.com/api/v2/sites'" do
-        pending
+        WebMock.stub_request(:delete, 'https://api.chargify.com/api/v2/sites/123')
+        SiteResource.destroy(123)
+        a_request(:delete, 'https://api.chargify.com/api/v2/sites/123').should have_been_made.once
       end
 
       it "returns true after the resource is successfully deleted" do
-        pending
+        WebMock.stub_request(:delete, 'https://api.chargify.com/api/v2/sites/123').to_return(:status => 204)
+        SiteResource.destroy(123).should be_true
       end
 
       it "returns false when the resource can't be deleted" do
-        pending
+        WebMock.stub_request(:delete, 'https://api.chargify.com/api/v2/sites/123').to_return(:status => 422)
+        SiteResource.destroy(123).should be_false
       end
     end
 
