@@ -13,7 +13,9 @@ module Chargify2
     headers 'Content-Type' => 'application/json', 'Accept' => 'application/json'
     format :json
 
-    class << self; attr_accessor :representation_name; end
+    class << self
+      attr_accessor :representation_name
+    end
 
     def self.path(resource_path)
       @path = resource_path
@@ -54,10 +56,10 @@ module Chargify2
       response = self.post(uri, :query => { :site => query })
 
       resource = if response.code.to_s =~ /^2/
-                   self.representation.new(response.parsed_response[self.representation_name])
-                 else
-                   false
-                 end
+        self.representation.new(response.parsed_response[self.representation_name])
+      else
+        false
+      end
 
       resource
     end
@@ -70,10 +72,11 @@ module Chargify2
       response = self.put("#{uri}/#{id}", :query => { :site => query })
 
       resource = if response.code.to_s =~ /^2/
-                   self.representation.new(response.parsed_response[self.representation_name])
-                 else
-                   false
-                 end
+        self.representation.new(response.parsed_response[self.representation_name])
+      else
+        false
+      end
+
       resource
     end
 
@@ -85,13 +88,13 @@ module Chargify2
       response = self.get(uri, :query => query.empty? ? nil : query)
 
       resources = if response.code.to_s =~ /^2/
-                    response.parsed_response.inject([]) do |responses, response_hash|
-                      responses << self.representation.new(response_hash[self.representation_name].symbolize_keys)
-                      responses
-                    end
-                  else
-                    []
-                  end
+        response.parsed_response.inject([]) do |responses, response_hash|
+          responses << self.representation.new(response_hash[self.representation_name].symbolize_keys)
+          responses
+        end
+      else
+        []
+      end
 
       resources
     end
@@ -104,11 +107,11 @@ module Chargify2
       response = self.get("#{uri}/#{id}", :query => query.empty? ? nil : query)
 
       resource = if response.code.to_s =~ /^2/
-                   response_hash = response[self.representation_name] || {}
-                   representation.new(response_hash.symbolize_keys)
-                 else
-                   nil
-                 end
+        response_hash = response[self.representation_name] || {}
+        representation.new(response_hash.symbolize_keys)
+      else
+        nil
+      end
 
       resource
     end
