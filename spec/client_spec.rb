@@ -2,6 +2,10 @@ require 'spec_helper'
 
 module Chargify2
   describe Client do
+    after do
+      SiteResource.default_options.delete(:basic_auth)
+    end
+
     let(:client) { Client.new(valid_client_credentials) }
 
     it "holds an api_id when passed to .new in the 'api_id' key" do
