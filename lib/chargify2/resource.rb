@@ -89,7 +89,7 @@ module Chargify2
 
       resources = if response.code.to_s =~ /^2/
         response.parsed_response.inject([]) do |responses, response_hash|
-          responses << self.representation.new(response_hash[self.representation_name].symbolize_keys)
+          responses << self.representation.new(response_hash[self.representation_name].deep_symbolize_keys)
           responses
         end
       else
@@ -108,7 +108,7 @@ module Chargify2
 
       resource = if response.code.to_s =~ /^2/
         response_hash = response[self.representation_name] || {}
-        representation.new(response_hash.symbolize_keys)
+        representation.new(response_hash.deep_symbolize_keys)
       else
         nil
       end

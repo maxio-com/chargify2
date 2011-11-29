@@ -56,11 +56,15 @@ module Chargify2
     end
 
     it "accesses a CallResource through #calls" do
-      calls = client.calls.should be_a(CallResource)
+      client.calls.should be_a(CallResource)
     end
 
     it "accesses a SiteResource through #sites" do
-      sites = client.sites.should be_a(SiteResource)
+      client.sites.should be_a(SiteResource)
+    end
+
+    it "accesses a TransactionResource through #transactions" do
+      client.transactions.should be_a(TransactionResource)
     end
   end
 end

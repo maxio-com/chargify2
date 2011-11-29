@@ -18,7 +18,7 @@ module Chargify2
     attr_reader :base_uri
 
     def initialize(args = {})
-      options = args.symbolize_keys
+      options = args.deep_symbolize_keys
 
       @api_id       = options[:api_id]
       @api_password = options[:api_password]
@@ -36,6 +36,10 @@ module Chargify2
 
     def sites
       Chargify2::SiteResource.new(self)
+    end
+
+    def transactions
+      Chargify2::TransactionResource.new(self)
     end
   end
 end

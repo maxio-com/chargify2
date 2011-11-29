@@ -1,15 +1,17 @@
 module Chargify2
-  class Site < Hashie::Dash
+  class Transaction < Hashie::Dash
     property :id
-    property :test_mode
-    property :currency
-    property :seller_id
-    property :configured_gateway
-    property :name
-    property :subdomain
+    property :transaction_type
+    property :amount_in_cents
+    property :ending_balance_in_cents
+    property :memo
+    property :subscription_id
+    property :product_id
     property :success
+    property :created_at
     property :request
     property :response
+    property :errors
 
     def request
       Request.new(self[:request] || {})

@@ -21,7 +21,7 @@ module Chargify2
     end
 
     def errors
-      (response.result.errors || []).map {|e| OpenCascade.new(e.symbolize_keys)}
+      (response.result.errors || []).map {|e| OpenCascade.new(e.deep_symbolize_keys)}
     end
 
     class Request < OpenCascade; end

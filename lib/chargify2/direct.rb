@@ -37,7 +37,7 @@ module Chargify2
       attr_reader :secret
 
       def initialize(hash, client)
-        args = hash.symbolize_keys
+        args = hash.deep_symbolize_keys
 
         @api_id     = client.api_id
         @secret     = client.api_secret
@@ -107,7 +107,7 @@ module Chargify2
       attr_reader :signature
 
       def initialize(params, client)
-        args = params.symbolize_keys
+        args = params.deep_symbolize_keys
 
         @api_id       = client.api_id
         @secret       = client.api_secret
