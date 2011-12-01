@@ -11,6 +11,14 @@ module Chargify2
     property :request
     property :response
 
+    def self.singular_name
+      'site'
+    end
+
+    def self.plural_name
+      'sites'
+    end
+
     def request
       Request.new(self[:request] || {})
     end

@@ -8,6 +8,14 @@ module Chargify2
     property :request
     property :response
 
+    def self.singular_name
+      'call'
+    end
+
+    def self.plural_name
+      'calls'
+    end
+
     def request
       Request.new(self[:request] || {})
     end

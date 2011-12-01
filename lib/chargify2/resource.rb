@@ -9,6 +9,11 @@ module Chargify2
   class Resource
     include HTTParty
 
+    class << self
+      extend Forwardable
+      def_delegators :@representation, :singular_name, :plural_name
+    end
+
     base_uri Chargify2::Client::BASE_URI
     headers 'Content-Type' => 'application/json', 'Accept' => 'application/json'
     format :json
@@ -55,13 +60,11 @@ module Chargify2
     def self.create(query)
       response = self.post(uri, :query => { :site => query })
 
-      resource = if response.code.to_s =~ /^2/
-        self.representation.new(response.parsed_response[self.representation_name])
+      if response.code.to_s =~ /^2/ && resource = response.parsed_response.delete(self.singular_name)
+        self.representation.new(resource)
       else
         false
       end
-
-      resource
     end
 
     def create(query)
@@ -71,13 +74,11 @@ module Chargify2
     def self.update(id, query)
       response = self.put("#{uri}/#{id}", :query => { :site => query })
 
-      resource = if response.code.to_s =~ /^2/
-        self.representation.new(response.parsed_response[self.representation_name])
+      if response.code.to_s =~ /^2/ && resource = response.parsed_response.delete(self.singular_name)
+        self.representation.new(resource)
       else
         false
       end
-
-      resource
     end
 
     def update(id, query)
@@ -87,16 +88,14 @@ module Chargify2
     def self.list(query = {})
       response = self.get(uri, :query => query.empty? ? nil : query)
 
-      resources = if response.code.to_s =~ /^2/
-        response.parsed_response.inject([]) do |responses, response_hash|
-          responses << self.representation.new(response_hash[self.representation_name].deep_symbolize_keys)
+      if response.code.to_s =~ /^2/ && resources = response.parsed_response.delete(self.plural_name)
+        resources.inject([]) do |responses, response_hash|
+          responses << self.representation.new(response_hash.deep_symbolize_keys)
           responses
         end
       else
         []
       end
-
-      resources
     end
 
     def list(query = {})
@@ -106,14 +105,11 @@ module Chargify2
     def self.read(id, query = {})
       response = self.get("#{uri}/#{id}", :query => query.empty? ? nil : query)
 
-      resource = if response.code.to_s =~ /^2/
-        response_hash = response[self.representation_name] || {}
-        representation.new(response_hash.deep_symbolize_keys)
+      if response.code.to_s =~ /^2/ && resource = response.parsed_response.delete(self.singular_name)
+        representation.new(resource)
       else
         nil
       end
-
-      resource
     end
 
     def read(id, query = {})

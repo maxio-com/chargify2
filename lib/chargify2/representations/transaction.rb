@@ -13,6 +13,14 @@ module Chargify2
     property :response
     property :errors
 
+    def self.singular_name
+      'transaction'
+    end
+
+    def self.plural_name
+      'transactions'
+    end
+
     def request
       Request.new(self[:request] || {})
     end

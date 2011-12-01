@@ -12,13 +12,15 @@ module Chargify2
 
     describe "#read" do
       it "performs a GET request to 'https://api.chargify.com/api/v2/calls/123' (without authentication) when called with '123'" do
-        WebMock.stub_request(:get, 'https://api.chargify.com/api/v2/calls/123')
+        WebMock.stub_request(:get, 'https://api.chargify.com/api/v2/calls/123').to_return(:body => '{"call":{}}', :status => 200)
+
         CallResource.read('123')
         a_request(:get, 'https://api.chargify.com/api/v2/calls/123').should have_been_made.once
       end
 
       it "returns a Call representation" do
-        WebMock.stub_request(:get, 'https://api.chargify.com/api/v2/calls/123')
+        WebMock.stub_request(:get, 'https://api.chargify.com/api/v2/calls/123').to_return(:body => '{"call":{}}', :status => 200)
+
         CallResource.read('123').should be_a(Call)
       end
 
@@ -43,13 +45,15 @@ module Chargify2
       end
 
       it "performs a GET request to 'https://<api_login>:<api_password>@api.chargify.com/api/v2/calls/123' (with authentication) when called with '123'" do
-        WebMock.stub_request(:get, "https://#{@client.api_id}:#{@client.api_password}@api.chargify.com/api/v2/calls/123")
+        WebMock.stub_request(:get, "https://#{@client.api_id}:#{@client.api_password}@api.chargify.com/api/v2/calls/123").to_return(:body => '{"call":{}}', :status => 200)
+
         CallResource.read('123')
         a_request(:get, "https://#{@client.api_id}:#{@client.api_password}@api.chargify.com/api/v2/calls/123").should have_been_made.once
       end
 
       it "returns a Call representation" do
-        WebMock.stub_request(:get, "https://#{@client.api_id}:#{@client.api_password}@api.chargify.com/api/v2/calls/123")
+        WebMock.stub_request(:get, "https://#{@client.api_id}:#{@client.api_password}@api.chargify.com/api/v2/calls/123").to_return(:body => '{"call":{}}', :status => 200)
+
         CallResource.read('123').should be_a(Call)
       end
     end

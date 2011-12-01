@@ -70,13 +70,13 @@ module Chargify2
 
     describe "reading a Site resource" do
       it "performs a GET request to 'https://api.chargify.com/api/v2/sites/123' (without authentication) when called with '123'" do
-        WebMock.stub_request(:get, 'https://api.chargify.com/api/v2/sites/123')
+        WebMock.stub_request(:get, 'https://api.chargify.com/api/v2/sites/123').to_return(:body => '{"site":{}}')
         SiteResource.read('123')
         a_request(:get, 'https://api.chargify.com/api/v2/sites/123').should have_been_made.once
       end
 
       it "returns a Site representation" do
-        WebMock.stub_request(:get, 'https://api.chargify.com/api/v2/sites/123')
+        WebMock.stub_request(:get, 'https://api.chargify.com/api/v2/sites/123').to_return(:body => '{"site":{}}')
         SiteResource.read('123').should be_a(Site)
       end
 
@@ -88,13 +88,13 @@ module Chargify2
 
     describe "retrieving a list of Site resources" do
       it "performs a GET request to 'https://api.chargify.com/api/v2/sites' (without authentication) when called with '123'" do
-        WebMock.stub_request(:get, 'https://api.chargify.com/api/v2/sites').to_return(:body => "[]")
+        WebMock.stub_request(:get, 'https://api.chargify.com/api/v2/sites').to_return(:body => '{"sites":{}}', :status => 200)
         SiteResource.list
         a_request(:get, 'https://api.chargify.com/api/v2/sites').should have_been_made.once
       end
 
       it "returns an array of Site representations" do
-        WebMock.stub_request(:get, 'https://api.chargify.com/api/v2/sites').to_return(:body => "[]")
+        WebMock.stub_request(:get, 'https://api.chargify.com/api/v2/sites').to_return(:body => '{"sites":{}}', :status => 200)
         SiteResource.list.should be_a(Array)
       end
 
@@ -119,13 +119,13 @@ module Chargify2
       end
 
       it "performs a GET request to 'https://<api_login>:<api_password>@api.chargify.com/api/v2/sites/123' (with authentication) when called with '123'" do
-        WebMock.stub_request(:get, "https://#{@client.api_id}:#{@client.api_password}@api.chargify.com/api/v2/sites/123")
+        WebMock.stub_request(:get, "https://#{@client.api_id}:#{@client.api_password}@api.chargify.com/api/v2/sites/123").to_return(:body => '{"site":{}}')
         SiteResource.read('123')
         a_request(:get, "https://#{@client.api_id}:#{@client.api_password}@api.chargify.com/api/v2/sites/123").should have_been_made.once
       end
 
       it "returns a Site representation" do
-        WebMock.stub_request(:get, "https://#{@client.api_id}:#{@client.api_password}@api.chargify.com/api/v2/sites/123")
+        WebMock.stub_request(:get, "https://#{@client.api_id}:#{@client.api_password}@api.chargify.com/api/v2/sites/123").to_return(:body => '{"site":{}}')
         SiteResource.read('123').should be_a(Site)
       end
     end
