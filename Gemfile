@@ -16,5 +16,6 @@ group :development do
   gem "vcr"
   gem "capybara"
   gem "ruby-debug19"
+  gem 'guard-rspec'
 end
 
