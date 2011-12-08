@@ -138,7 +138,7 @@ module Chargify2
 
     protected
     def self.interpolate_uri(query)
-      self.uri.gsub(/(:\w+)/) { |key| query.delete(eval(key)) }
+      self.uri.gsub(/:(\w+)/) { |key| query.delete($1.to_sym) }
     end
 
   end
