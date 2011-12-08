@@ -58,7 +58,9 @@ module Chargify2
     end
 
     def self.create(query)
-      response = self.post(uri, :query => { :site => query })
+      uri = interpolate_uri(query)
+
+      response = self.post(uri, :query => { self.singular_name => query })
 
       if response.code.to_s =~ /^2/ && resource = response.parsed_response.delete(self.singular_name)
         self.representation.new(resource)
@@ -72,7 +74,9 @@ module Chargify2
     end
 
     def self.update(id, query)
-      response = self.put("#{uri}/#{id}", :query => { :site => query })
+      uri = interpolate_uri(query)
+
+      response = self.put("#{uri}/#{id}", :query => { self.singular_name => query })
 
       if response.code.to_s =~ /^2/ && resource = response.parsed_response.delete(self.singular_name)
         self.representation.new(resource)
@@ -129,6 +133,12 @@ module Chargify2
     def destroy(id, query = {})
       self.class.destroy(id, query)
     end
+
+    protected
+    def self.interpolate_uri(query)
+      self.uri.gsub(/(:\w+)/) { |key| query.delete(eval(key)) }
+    end
+
   end
 
   class ResourceError < StandardError; end

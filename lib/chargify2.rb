@@ -13,5 +13,7 @@ require 'chargify2/representations/site'
 require 'chargify2/resources/site_resource'
 require 'chargify2/representations/transaction'
 require 'chargify2/resources/transaction_resource'
+require 'chargify2/representations/api_user'
+require 'chargify2/resources/api_user_resource'
 
 Hash.send(:include, Chargify2::Utils::HashExtensions)

@@ -66,5 +66,9 @@ module Chargify2
     it "accesses a TransactionResource through #transactions" do
       client.transactions.should be_a(TransactionResource)
     end
+
+    it "accesses a ApiUser through #api_users" do
+      client.api_users.should be_a(ApiUserResource)
+    end
   end
 end

@@ -26,6 +26,10 @@ module Chargify2
       @base_uri     = options[:base_uri] || BASE_URI
     end
 
+    def api_users
+      Chargify2::ApiUserResource.new(self)
+    end
+
     def direct
       Chargify2::Direct.new(self)
     end
