@@ -31,21 +31,21 @@ module Chargify2
     end
 
     describe "reading a Site resource" do
-      # it "performs a GET request to 'https://api.chargify.com/api/v2/sites/123' (without authentication) when called with '123'" do
-      #   WebMock.stub_request(:get, 'https://api.chargify.com/api/v2/sites/123').to_return(:body => '{"site":{}}')
-      #   SiteResource.read('123')
-      #   a_request(:get, 'https://api.chargify.com/api/v2/sites/123').should have_been_made.once
-      # end
+      it "performs a GET request to 'https://api.chargify.com/api/v2/sites/1/api_users/1' (without authentication) when called with '123'" do
+        WebMock.stub_request(:get, 'https://api.chargify.com/api/v2/sites/1/api_users/1').to_return(:body => '{"api_user":{}}')
+        ApiUserResource.read(1, :site_id => 1)
+        a_request(:get, 'https://api.chargify.com/api/v2/sites/1/api_users/1').should have_been_made.once
+      end
 
-      # it "returns a Site representation" do
-      #   WebMock.stub_request(:get, 'https://api.chargify.com/api/v2/sites/123').to_return(:body => '{"site":{}}')
-      #   SiteResource.read('123').should be_a(Site)
-      # end
+      it "returns a ApiUser representation" do
+        WebMock.stub_request(:get, 'https://api.chargify.com/api/v2/sites/1/api_users/1').to_return(:body => '{"api_user":{}}')
+        ApiUserResource.read(1, :site_id => 1).should be_a(ApiUser)
+      end
 
-      # it "returns nil when the status is not 200" do
-      #   WebMock.stub_request(:get, 'https://api.chargify.com/api/v2/sites/123').to_return(:status => 404)
-      #   SiteResource.read('123').should be_nil
-      # end
+      it "returns nil when the status is not 200" do
+        WebMock.stub_request(:get, 'https://api.chargify.com/api/v2/sites/1/api_users/1').to_return(:status => 404)
+        ApiUserResource.read(1, :site_id => 1).should be_nil
+      end
     end
 
     context "instance configured with a client and a non-standard base URI" do
@@ -56,23 +56,23 @@ module Chargify2
       end
     end
 
-    # context "instance configured with a valid client" do
-    #   before(:each) do
-    #     @client = Client.new(valid_client_credentials)
-    #     @site_resource = SiteResource.new(@client)
-    #   end
+    context "instance configured with a valid client" do
+      before(:each) do
+        @client = Client.new(valid_client_credentials)
+        @api_user_resource = ApiUserResource.new(@client)
+      end
 
-    #   it "performs a GET request to 'https://<api_login>:<api_password>@api.chargify.com/api/v2/sites/123' (with authentication) when called with '123'" do
-    #     WebMock.stub_request(:get, "https://#{@client.api_id}:#{@client.api_password}@api.chargify.com/api/v2/sites/123").to_return(:body => '{"site":{}}')
-    #     SiteResource.read('123')
-    #     a_request(:get, "https://#{@client.api_id}:#{@client.api_password}@api.chargify.com/api/v2/sites/123").should have_been_made.once
-    #   end
+      it "performs a GET request to 'https://<api_login>:<api_password>@api.chargify.com/api/v2/sites/1/api_users/1' (with authentication) when called with '1'" do
+        WebMock.stub_request(:get, "https://#{@client.api_id}:#{@client.api_password}@api.chargify.com/api/v2/sites/1/api_users/1").to_return(:body => '{"api_user":{}}')
+        ApiUserResource.read(1, :site_id => 1)
+        a_request(:get, "https://#{@client.api_id}:#{@client.api_password}@api.chargify.com/api/v2/sites/1/api_users/1").should have_been_made.once
+      end
 
-    #   it "returns a Site representation" do
-    #     WebMock.stub_request(:get, "https://#{@client.api_id}:#{@client.api_password}@api.chargify.com/api/v2/sites/123").to_return(:body => '{"site":{}}')
-    #     SiteResource.read('123').should be_a(Site)
-    #   end
-    # end
+      it "returns a ApiUser representation" do
+        WebMock.stub_request(:get, "https://#{@client.api_id}:#{@client.api_password}@api.chargify.com/api/v2/sites/1/api_users/1").to_return(:body => '{"api_user":{}}')
+        ApiUserResource.read(1, :site_id => 1).should be_a(ApiUser)
+      end
+    end
   end
 end
 
