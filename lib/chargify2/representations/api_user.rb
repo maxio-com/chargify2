@@ -5,6 +5,7 @@ module Chargify2
     property :owner_type
     property :api_id
     property :password
+    property :decrypted_api_secret
     property :url
     property :request
     property :response
