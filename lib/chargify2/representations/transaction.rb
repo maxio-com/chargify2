@@ -22,11 +22,11 @@ module Chargify2
     end
 
     def request
-      Request.new(self[:request] || {})
+      Request.new(self[:request].deep_symbolize_keys || {})
     end
 
     def response
-      Response.new(self[:response] || {})
+      Response.new(self[:response].deep_symbolize_keys || {})
     end
 
     def successful?
@@ -34,7 +34,7 @@ module Chargify2
     end
 
     def errors
-      (response.result.errors || []).map {|e| OpenCascade.new(e.deep_symbolize_keys)}
+      (response.result.errors || []).map! {|e| OpenCascade.new(e.deep_symbolize_keys)}
     end
 
     class Request < OpenCascade; end
