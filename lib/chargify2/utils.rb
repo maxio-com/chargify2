@@ -5,6 +5,8 @@ module Chargify2
       def deep_symbolize_keys
         Hash[
           self.map { |key, value|
+            return if key.nil?
+
             k = key.to_sym
             v = value.is_a?(Hash) ? value.deep_symbolize_keys : value
             [k,v]
