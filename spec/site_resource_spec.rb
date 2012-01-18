@@ -34,7 +34,7 @@ module Chargify2
       it "makes a PUT request to 'https://api.chargify.com/api/v2/sites'" do
         WebMock.stub_request(:put, /https?:\/\/api.chargify.com\/api\/v2\/sites\/123\??(.*)/).to_return(:body => '{"site":{}}', :status => 200)
         SiteResource.update('123', attributes)
-        a_request(:put, 'https://api.chargify.com/api/v2/sites/123?site%5Bname%5D=Changed%20name').should have_been_made.once
+        a_request(:put, 'https://api.chargify.com/api/v2/sites/123').should have_been_made.once
       end
 
       it "returns a Site representation when it updates the resource successfully" do
@@ -54,7 +54,7 @@ module Chargify2
       it "makes a POST request to 'https://api.chargify.com/api/v2/sites'" do
         WebMock.stub_request(:post, /https?:\/\/api.chargify.com\/api\/v2\/sites\??(.*)/).to_return(:body => '{"site":{}}', :status => 201)
         SiteResource.create(attributes)
-        a_request(:post, 'https://api.chargify.com/api/v2/sites?site%5Bname%5D=Acme%20Test&site%5Bsubdomain%5D=acme-test').should have_been_made.once
+        a_request(:post, 'https://api.chargify.com/api/v2/sites').should have_been_made.once
       end
 
       it "returns a site representation when it creates the resource successfully" do

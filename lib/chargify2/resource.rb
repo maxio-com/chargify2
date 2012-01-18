@@ -15,7 +15,7 @@ module Chargify2
     end
 
     base_uri Chargify2::Client::BASE_URI
-    headers 'Content-Type' => 'application/json', 'Accept' => 'application/json'
+    # headers 'Content-Type' => 'application/json', 'Accept' => 'application/json'
     format :json
 
     class << self
@@ -60,7 +60,7 @@ module Chargify2
     def self.create(query)
       uri = interpolate_uri(query)
 
-      response = self.post(uri, :query => { self.singular_name => query })
+      response = self.post(uri, :body => { :site => query })
 
       if response.code.to_s =~ /^2/ && resource = response.parsed_response.delete(self.singular_name)
         self.representation.new(resource)
@@ -76,7 +76,7 @@ module Chargify2
     def self.update(id, query)
       uri = interpolate_uri(query)
 
-      response = self.put("#{uri}/#{id}", :query => { self.singular_name => query })
+      response = self.put("#{uri}/#{id}", :body => { self.singular_name => query })
 
       if response.code.to_s =~ /^2/ && resource = response.parsed_response.delete(self.singular_name)
         self.representation.new(resource)
@@ -138,9 +138,8 @@ module Chargify2
 
     protected
     def self.interpolate_uri(query)
-      self.uri.gsub(/:(\w+)/) { |key| query.delete($1.to_sym) }
+      self.uri.gsub(/:([a-z|_]+)/i) { |key| query.delete($1.to_sym) }
     end
-
   end
 
   class ResourceError < StandardError; end

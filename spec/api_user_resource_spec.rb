@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module Chargify2
-  describe SiteResource do
+  describe ApiUserResource do
     it "should have a URI of 'https://api.chargify.com/api/v2/api_users'" do
       ApiUserResource.uri.should == 'https://api.chargify.com/api/v2/sites/:site_id/api_users'
     end
@@ -16,7 +16,7 @@ module Chargify2
       it "makes a POST request to 'https://api.chargify.com/api/v2/api_users'" do
         WebMock.stub_request(:post, /https?:\/\/api.chargify.com\/api\/v2\/sites\/1\/api_users\??(.*)/).to_return(:body => '{"api_user":{}}', :status => 201)
         ApiUserResource.create(attributes)
-        a_request(:post, 'https://api.chargify.com/api/v2/sites/1/api_users?api_user%5Bpassword%5D=password').should have_been_made.once
+        a_request(:post, 'https://api.chargify.com/api/v2/sites/1/api_users').should have_been_made.once
       end
 
       it "returns a site representation when it creates the resource successfully" do
