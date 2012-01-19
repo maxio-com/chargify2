@@ -60,7 +60,7 @@ module Chargify2
     def self.create(query)
       uri = interpolate_uri(query)
 
-      response = self.post(uri, :body => { :site => query })
+      response = self.post(uri, :body => { self.singular_name => query })
 
       if response.code.to_s =~ /^2/ && resource = response.parsed_response.delete(self.singular_name)
         self.representation.new(resource)
@@ -123,7 +123,7 @@ module Chargify2
     end
 
     def self.destroy(id, query = {})
-      response = self.delete("#{uri}/#{id}", :query => query.empty? ? nil :query)
+      response = self.delete("#{uri}/#{id}", :body => query.empty? ? nil : query)
 
       if response.code.to_s =~ /^2/
         true
