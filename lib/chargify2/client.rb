@@ -30,12 +30,16 @@ module Chargify2
       Chargify2::ApiUserResource.new(self)
     end
 
+    def calls
+      Chargify2::CallResource.new(self)
+    end
+
     def direct
       Chargify2::Direct.new(self)
     end
 
-    def calls
-      Chargify2::CallResource.new(self)
+    def product_families
+      Chargify2::ProductFamilyResource.new(self)
     end
 
     def sites
