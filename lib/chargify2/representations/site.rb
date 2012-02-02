@@ -8,6 +8,7 @@ module Chargify2
     property :name
     property :subdomain
     property :success
+    property :url
     property :request
     property :response
 

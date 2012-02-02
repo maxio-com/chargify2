@@ -9,6 +9,7 @@ module Chargify2
     property :product_id
     property :success
     property :created_at
+    property :url
     property :request
     property :response
     property :errors
