@@ -7,13 +7,9 @@ require 'chargify2/utils'
 require 'chargify2/direct'
 require 'chargify2/resource'
 require 'chargify2/client'
-require 'chargify2/representations/call'
-require 'chargify2/resources/call_resource'
-require 'chargify2/representations/site'
-require 'chargify2/resources/site_resource'
-require 'chargify2/representations/transaction'
-require 'chargify2/resources/transaction_resource'
-require 'chargify2/representations/api_user'
-require 'chargify2/resources/api_user_resource'
+
+%w(representations resources).each do |dir|
+  Dir[File.dirname(__FILE__) + "/chargify2/#{dir}/*.rb"].each { |file| require file }
+end
 
 Hash.send(:include, Chargify2::Utils::HashExtensions)
