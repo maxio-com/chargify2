@@ -1,0 +1,32 @@
+GEM
+  remote: http://rubygems.org/
+  specs:
+    addressable (2.2.5)
+    crack (0.1.8)
+    git (1.2.5)
+    hashery (1.4.0)
+    jeweler (1.5.2)
+      bundler (~> 1.0.0)
+      git (>= 1.2.5)
+      rake
+    mime-types (1.16)
+    rake (0.8.7)
+    rcov (0.9.9)
+    rest-client (1.6.1)
+      mime-types (>= 1.16)
+    webmock (1.6.2)
+      addressable (>= 2.2.2)
+      crack (>= 0.1.7)
+    yard (0.6.5)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  bundler (~> 1.0.0)
+  hashery
+  jeweler (~> 1.5.2)
+  rcov
+  rest-client
+  webmock
+  yard (~> 0.6.0)
