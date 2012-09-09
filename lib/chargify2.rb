@@ -1,7 +1,7 @@
 require 'httparty'
 require 'addressable/uri'
 require 'hashie'
-require 'hashery/opencascade'
+require 'hashery/open_cascade'
 
 require 'chargify2/utils'
 require 'chargify2/direct'
