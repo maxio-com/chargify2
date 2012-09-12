@@ -21,10 +21,10 @@ module Chargify2
     end
 
     def errors
-      (response.result.errors || []).map {|e| OpenCascade.new(e.symbolize_keys)}
+      (response.result.errors || []).map {|e| Hashie::Mash.new(e.symbolize_keys)}
     end
 
-    class Request < Hashery::OpenCascade; end
-    class Response < Hashery::OpenCascade; end
+    class Request < Hashie::Mash; end
+    class Response < Hashie::Mash; end
   end
 end
