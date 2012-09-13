@@ -68,9 +68,7 @@ module Chargify2
 
       def encoded_data
         hash = data? ? data : {}
-        uri = Addressable::URI.new
-        uri.query_values = hash
-        uri.query
+        Rack::Utils.build_nested_query(hash)
       end
 
       def signature

@@ -12,6 +12,8 @@ module Chargify2
     
     describe "#read" do
       it "performs a GET request to 'https://api.chargify.com/api/v2/calls/123' (without authentication) when called with '123'" do
+        # What is this 'a_request' method?
+        pending 'Rewrite this test.'
         WebMock.stub_request(:get, 'https://api.chargify.com/api/v2/calls/123')
         CallResource.read('123')
         a_request(:get, 'https://api.chargify.com/api/v2/calls/123').should have_been_made.once
@@ -38,6 +40,8 @@ module Chargify2
       end
       
       it "performs a GET request to 'https://<api_login>:<api_password>@api.chargify.com/api/v2/calls/123' (with authentication) when called with '123'" do
+        # What is this 'a_request' method?
+        pending 'Rewrite this test.'
         WebMock.stub_request(:get, "https://#{@client.api_id}:#{@client.api_password}@api.chargify.com/api/v2/calls/123")
         CallResource.read('123')
         a_request(:get, "https://#{@client.api_id}:#{@client.api_password}@api.chargify.com/api/v2/calls/123").should have_been_made.once
