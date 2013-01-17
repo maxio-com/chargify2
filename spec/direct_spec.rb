@@ -21,11 +21,11 @@ module Chargify2
 
           sp.should be_a(Direct::SecureParameters)
 
-          sp.api_id.should_not     be_blank
-          sp.timestamp.should      be_blank
-          sp.nonce.should          be_blank
-          sp.data.should           be_blank
-          sp.signature.should_not  be_blank
+          sp.api_id.should_not     be_empty
+          sp.timestamp.should      be_nil
+          sp.nonce.should          be_nil
+          sp.data.should           be_nil
+          sp.signature.should_not  be_empty
         end
       end
       

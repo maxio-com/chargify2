@@ -9,11 +9,11 @@ module Chargify2
     property :response
     
     def request
-      Request.new(self[:request] || {})
+      Request[self[:request] || {}]
     end
     
     def response
-      Response.new(self[:response] || {})
+      Response[self[:response] || {}]
     end
     
     def successful?
@@ -21,10 +21,10 @@ module Chargify2
     end
     
     def errors
-      (response.result.errors || []).map {|e| OpenCascade.new(e.symbolize_keys)}
+      (response.result.errors || []).map {|e| Hashery::OpenCascade[e.symbolize_keys]}
     end
     
-    class Request < OpenCascade; end
-    class Response < OpenCascade; end
+    class Request < Hashery::OpenCascade; end
+    class Response < Hashery::OpenCascade; end
   end
 end
