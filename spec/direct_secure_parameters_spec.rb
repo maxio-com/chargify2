@@ -12,7 +12,7 @@ module Chargify2
 
     it "raises an argument error if it could not get an api_id and secret from the passed client" do
       lambda {
-        Direct::SecureParameters.new({}, OpenCascade.new)
+        Direct::SecureParameters.new({}, Hashery::OpenCascade.new)
       }.should raise_error(ArgumentError)
     end
 
@@ -105,12 +105,12 @@ module Chargify2
 
       it "turns a nested data hash in to nested query string format" do
         sp = Direct::SecureParameters.new({'data' => {'one' => {'two' => {'three' => 'four'}}, 'foo' => 'bar'}}, client)
-        sp.encoded_data.should == "foo=bar&one[two][three]=four"
+        sp.encoded_data.should == "one[two][three]=four&foo=bar"
       end
 
       it "performs percent encoding on unsafe characters" do
         sp = Direct::SecureParameters.new({'data' => {'redirect_uri' => 'http://www.example.com', 'sentence' => 'Michael was here!'}}, client)
-        sp.encoded_data.should == "redirect_uri=http%3A%2F%2Fwww.example.com&sentence=Michael%20was%20here%21"
+        sp.encoded_data.should == "redirect_uri=http%3A%2F%2Fwww.example.com&sentence=Michael+was+here%21"
       end
     end
 
