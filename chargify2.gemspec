@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
 
   # Runtime Dependencies
   s.add_runtime_dependency('rack', '>= 0')
-  s.add_runtime_dependency('hashery', '~> 2.0.1')
+  s.add_runtime_dependency('hashery', '~> 2.1.0')
   s.add_runtime_dependency('hashie', '>= 0')
   s.add_runtime_dependency('httparty', '>= 0')
 
