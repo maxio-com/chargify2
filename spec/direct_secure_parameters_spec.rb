@@ -100,17 +100,20 @@ module Chargify2
     describe "#encoded_data" do
       it "turns the data hash in to query string format" do
         sp = Direct::SecureParameters.new({'data' => {'one' => 'two', 'three' => 'four'}}, client)
-        sp.encoded_data.should == "one=two&three=four"
+        sp.encoded_data.should include 'one=two'
+        sp.encoded_data.should include 'three=four'
       end
 
       it "turns a nested data hash in to nested query string format" do
         sp = Direct::SecureParameters.new({'data' => {'one' => {'two' => {'three' => 'four'}}, 'foo' => 'bar'}}, client)
-        sp.encoded_data.should == "one[two][three]=four&foo=bar"
+        sp.encoded_data.should include 'one[two][three]=four'
+        sp.encoded_data.should include 'foo=bar'
       end
 
       it "performs percent encoding on unsafe characters" do
         sp = Direct::SecureParameters.new({'data' => {'redirect_uri' => 'http://www.example.com', 'sentence' => 'Michael was here!'}}, client)
-        sp.encoded_data.should == "redirect_uri=http%3A%2F%2Fwww.example.com&sentence=Michael+was+here%21"
+        sp.encoded_data.should include 'redirect_uri=http%3A%2F%2Fwww.example.com'
+        sp.encoded_data.should include 'sentence=Michael+was+here%21'
       end
     end
 
