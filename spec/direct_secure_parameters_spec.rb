@@ -187,6 +187,10 @@ module Chargify2
         data = {'one' => 'two', 'three' => {'four' => "http://www.example.com"}}
         sp = Direct::SecureParameters.new({'timestamp' => timestamp, 'nonce' => nonce, 'data' => data}, client)
 
+        # Rack::Utils.build_nested_query puts the string elements in a different order in different rubies
+        # Stub here to test the signature method.  We test the encoded_data method above.
+        sp.stub(:encoded_data).and_return("one=two&three[four]=http%3A%2F%2Fwww.example.com")
+
         # Used the generator here: http://hash.online-convert.com/sha1-generator
         # ... with message: "1c016050-498a-012e-91b1-005056a216ab12345678one=two&three[four]=http%3A%2F%2Fwww.example.com"
         # ... and secret: "p5lxQ804MYtwZecFWNOT"
