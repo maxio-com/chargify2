@@ -16,20 +16,20 @@ module Chargify2
     attr_reader :api_password
     attr_reader :api_secret
     attr_reader :base_uri
-    
+
     def initialize(args = {})
       options = args.symbolize_keys
-      
+
       @api_id       = options[:api_id]
       @api_password = options[:api_password]
       @api_secret   = options[:api_secret]
       @base_uri     = options[:base_uri] || BASE_URI
     end
-    
+
     def direct
       Chargify2::Direct.new(self)
     end
-    
+
     def calls
       Chargify2::CallResource.new(self)
     end
