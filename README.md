@@ -1,4 +1,4 @@
-Chargify API V2 Ruby Wrapper [![build status](https://secure.travis-ci.org/chargify/chargify2.png)](http://travis-ci.org/chargify/chargify2)
+Chargify API V2 Ruby Wrapper [![build status](https://travis-ci.org/chargify/chargify2.png?branch=master)](http://travis-ci.org/chargify/chargify2)
 ============================
 
 This gem is meant to be used with the [Chargify Direct API](http://docs.chargify.com/chargify-direct-introduction).
