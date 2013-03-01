@@ -100,17 +100,20 @@ module Chargify2
     describe "#encoded_data" do
       it "turns the data hash in to query string format" do
         sp = Direct::SecureParameters.new({'data' => {'one' => 'two', 'three' => 'four'}}, client)
-        sp.encoded_data.should == "one=two&three=four"
+        sp.encoded_data.should include 'one=two'
+        sp.encoded_data.should include 'three=four'
       end
 
       it "turns a nested data hash in to nested query string format" do
         sp = Direct::SecureParameters.new({'data' => {'one' => {'two' => {'three' => 'four'}}, 'foo' => 'bar'}}, client)
-        sp.encoded_data.should == "one[two][three]=four&foo=bar"
+        sp.encoded_data.should include 'one[two][three]=four'
+        sp.encoded_data.should include 'foo=bar'
       end
 
       it "performs percent encoding on unsafe characters" do
         sp = Direct::SecureParameters.new({'data' => {'redirect_uri' => 'http://www.example.com', 'sentence' => 'Michael was here!'}}, client)
-        sp.encoded_data.should == "redirect_uri=http%3A%2F%2Fwww.example.com&sentence=Michael+was+here%21"
+        sp.encoded_data.should include 'redirect_uri=http%3A%2F%2Fwww.example.com'
+        sp.encoded_data.should include 'sentence=Michael+was+here%21'
       end
     end
 
@@ -183,6 +186,10 @@ module Chargify2
         nonce = '5678'
         data = {'one' => 'two', 'three' => {'four' => "http://www.example.com"}}
         sp = Direct::SecureParameters.new({'timestamp' => timestamp, 'nonce' => nonce, 'data' => data}, client)
+
+        # Rack::Utils.build_nested_query puts the string elements in a different order in different rubies
+        # Stub here to test the signature method.  We test the encoded_data method above.
+        sp.stub(:encoded_data).and_return("one=two&three[four]=http%3A%2F%2Fwww.example.com")
 
         # Used the generator here: http://hash.online-convert.com/sha1-generator
         # ... with message: "1c016050-498a-012e-91b1-005056a216ab12345678one=two&three[four]=http%3A%2F%2Fwww.example.com"
