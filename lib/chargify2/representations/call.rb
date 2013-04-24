@@ -17,7 +17,7 @@ module Chargify2
     end
     
     def successful?
-      response.result.status_code.to_s == '200'
+      response['result']['status_code'].to_s == '200'
     end
     
     def errors
