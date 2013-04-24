@@ -3,7 +3,9 @@ Chargify API V2 Ruby Wrapper [![build status](https://travis-ci.org/chargify/cha
 
 This gem is meant to be used with the [Chargify Direct API](http://docs.chargify.com/chargify-direct-introduction).
 
-You'll need Chargify Direct credentials to interact with the Chargify V2 API, which you can get by [opening a support ticket](http://help.chargify.com/anonymous_requests/new).
+You'll need Chargify Direct credentials to interact with the Chargify V2
+API, which you can get by visiting your site settings page, such as:
+https://your-site-subdomain.chargify.com/settings#chargify-direct
 
 Getting Started
 ---------------
