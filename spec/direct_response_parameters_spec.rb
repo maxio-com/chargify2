@@ -6,7 +6,7 @@ module Chargify2
 
     it "raises an argument error if it could not get an api_id and secret from the passed client" do
       lambda {
-        Direct::SecureParameters.new({}, OpenCascade.new)
+        Direct::SecureParameters.new({}, Hashery::OpenCascade.new)
       }.should raise_error(ArgumentError)
     end
 
