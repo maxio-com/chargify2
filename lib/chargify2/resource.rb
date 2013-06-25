@@ -54,6 +54,17 @@ module Chargify2
     def read(id, query = {})
       self.class.read(id, query)
     end
+
+    def self.list(query = {})
+      response = get("#{uri}", :query => query.empty? ? nil : query)
+      singular_name = representation.to_s.downcase.split('::').last
+      response_hash = response[singular_name + "s"] || {}
+      response_hash.map{|x| representation.new(x[singular_name].symbolize_keys)}
+    end
+
+    def list(query = {})
+      self.class.list(query)
+    end
   end
   
   class ResourceError < StandardError; end
