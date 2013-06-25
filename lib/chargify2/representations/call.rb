@@ -7,7 +7,7 @@ module Chargify2
     property :success
     property :request
     property :response
-    
+
     def request
       Request[self[:request] || {}]
     end

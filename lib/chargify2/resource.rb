@@ -13,19 +13,6 @@ module Chargify2
     headers 'Content-Type' => 'application/json', 'Accept' => 'application/json'
     format :json
 
-    def self.path(resource_path = nil)
-      return @path unless resource_path
-      @path = resource_path
-    end
-
-    # Define the representation class for this resource
-    def self.representation(klass = nil)
-      unless klass.nil?
-        @@representation = klass
-      end
-      @@representation ||= nil
-    end
-
     def initialize(client)
       @client = client
       @base_uri = client.base_uri
@@ -44,7 +31,21 @@ module Chargify2
       self.class.read(id, query, merge_options(options))
     end
 
+    def self.list(query = {}, options = {})
+      options.merge!(:query => query.empty? ? nil : query)
+      response = get("/#{path}", options)
+
+      singular_name = representation.to_s.downcase.split('::').last
+      response_hash = response[singular_name + "s"] || {}
+      response_hash.map{|resource| representation.new(resource[singular_name].symbolize_keys)}
+    end
+
+    def list(query = {}, options = {})
+      self.class.list(query, merge_options(options))
+    end
+
     private
+
     def merge_options(options)
       if @base_uri
         options.merge!(:base_uri => @base_uri)
@@ -57,16 +58,6 @@ module Chargify2
       options
     end
 
-    def self.list(query = {})
-      response = get("#{uri}", :query => query.empty? ? nil : query)
-      singular_name = representation.to_s.downcase.split('::').last
-      response_hash = response[singular_name + "s"] || {}
-      response_hash.map{|x| representation.new(x[singular_name].symbolize_keys)}
-    end
-
-    def list(query = {})
-      self.class.list(query)
-    end
   end
 
   class ResourceError < StandardError; end

@@ -1,6 +1,13 @@
 module Chargify2
   class CallResource < Resource
-    path 'calls'
-    representation Call
+
+    def self.path
+      'calls'
+    end
+
+    def self.representation
+      Call
+    end
+    
   end
 end

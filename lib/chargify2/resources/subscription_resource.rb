@@ -1,7 +1,14 @@
 module Chargify2
   class SubscriptionResource < Resource
-    path 'subscriptions'
-    representation Subscription
+
+    def self.path
+      'subscriptions'
+    end
+
+    def self.representation
+      Subscription
+    end
+
   end
 end
 
