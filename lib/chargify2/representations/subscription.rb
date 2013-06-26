@@ -25,7 +25,6 @@ module Chargify2
     property :cancel_at_end_of_period
     property :payment_collection_method
     property :total_revenue_in_cents
-    
   end
 end
 

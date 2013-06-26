@@ -21,10 +21,13 @@ module Chargify2
 
     def self.read(id, query = {}, options = {})
       options.merge!(:query => query.empty? ? nil : query)
-      response = get("/#{path}/#{id}", options)
-
+      response      = get("/#{path}/#{id}", options)
       response_hash = response[representation.to_s.downcase.split('::').last] || {}
-      representation.new(response_hash.symbolize_keys)
+
+      self.create_result(
+        representation.new(response_hash.symbolize_keys),
+        response
+      )
     end
 
     def read(id, query = {}, options = {})
@@ -33,11 +36,18 @@ module Chargify2
 
     def self.list(query = {}, options = {})
       options.merge!(:query => query.empty? ? nil : query)
-      response = get("/#{path}", options)
-
+      response      = get("/#{path}", options)
       singular_name = representation.to_s.downcase.split('::').last
       response_hash = response[singular_name + "s"] || {}
-      response_hash.map{|resource| representation.new(resource.symbolize_keys)}
+
+      self.create_result(
+        response_hash.map{|resource| representation.new(resource.symbolize_keys)},
+        response
+      )
+    end
+
+    def self.create_result(data, response)
+      Result.new(data, response["meta"]["status_code"], response["meta"]["errors"])
     end
 
     def list(query = {}, options = {})
