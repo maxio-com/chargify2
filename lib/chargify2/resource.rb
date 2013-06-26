@@ -37,7 +37,7 @@ module Chargify2
 
       singular_name = representation.to_s.downcase.split('::').last
       response_hash = response[singular_name + "s"] || {}
-      response_hash.map{|resource| representation.new(resource[singular_name].symbolize_keys)}
+      response_hash.map{|resource| representation.new(resource.symbolize_keys)}
     end
 
     def list(query = {}, options = {})

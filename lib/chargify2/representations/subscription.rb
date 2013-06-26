@@ -1,5 +1,5 @@
 module Chargify2
-  class Subscription < Hashie::Dash
+  class Subscription < Representation
     property :id
     property :state
     property :balance_in_cents
@@ -12,9 +12,9 @@ module Chargify2
     property :expires_at
     property :created_at
     property :updated_at
-    property :customer
-    property :product
-    property :credit_card
+    property :customer,    transform_with: lambda {|cust| Customer.new(cust)}
+    property :product,     transform_with: lambda {|prod| Product.new(prod)}
+    property :credit_card, transform_with: lambda {|cc|   CreditCard.new(cc)}
     property :cancellation_message
     property :canceled_at
     property :signup_revenue
@@ -22,29 +22,10 @@ module Chargify2
     property :delayed_cancel_at
     property :previous_state
     property :coupon_code
-    # why aren't these in subscription#show?
     property :cancel_at_end_of_period
     property :payment_collection_method
     property :total_revenue_in_cents
     
-    def request
-      Request.new(self[:request] || {})
-    end
-    
-    def response
-      Response.new(self[:response] || {})
-    end
-    
-    def successful?
-      response.result.status_code.to_s == '200'
-    end
-    
-    def errors
-      (response.result.errors || []).map {|e| OpenCascade.new(e.symbolize_keys)}
-    end
-    
-    class Request < Hashery::OpenCascade; end
-    class Response < Hashery::OpenCascade; end
   end
 end
 
