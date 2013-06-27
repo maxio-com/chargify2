@@ -20,7 +20,8 @@ module Chargify2
 
         it "returns a Call representation" do
           WebMock.stub_request(:get, 'https://api.chargify.com/api/v2/calls/123')
-          CallResource.read('123').should be_a(Call)
+          CallResource.read('123').should be_a(Response)
+          CallResource.read('123').resource.should be_a(Call)
         end
       end
     end
@@ -46,7 +47,8 @@ module Chargify2
 
         it "returns a Call representation" do
           WebMock.stub_request(:get, client_authenticated_uri(client, '/calls/123'))
-          call_resource.read('123').should be_a(Call)
+          call_resource.read('123').should be_a(Response)
+          call_resource.read('123').resource.should be_a(Call)
         end
       end
 

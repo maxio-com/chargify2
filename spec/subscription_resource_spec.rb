@@ -18,9 +18,10 @@ module Chargify2
           a_request(:get, 'https://api.chargify.com/api/v2/subscriptions/123').should have_been_made.once
         end
 
-        it "returns a Subscription representation" do
+        it "returns a Response object with a Subscription representation" do
           WebMock.stub_request(:get, 'https://api.chargify.com/api/v2/subscriptions/123')
-          SubscriptionResource.read('123').should be_a(Subscription)
+          SubscriptionResource.read('123').should be_a(Response)
+          SubscriptionResource.read('123').resource.should be_a(Subscription)
         end
       end
     end
@@ -46,7 +47,8 @@ module Chargify2
 
         it "returns a Subscription representation" do
           WebMock.stub_request(:get, client_authenticated_uri(client, '/subscriptions/123'))
-          call_resource.read('123').should be_a(Subscription)
+          call_resource.read('123').should be_a(Response)
+          call_resource.read('123').resource.should be_a(Subscription)
         end
       end
 
@@ -67,7 +69,7 @@ module Chargify2
 
         it "returns an array of Subscription representations" do
           WebMock.stub_request(:get, client_authenticated_uri(client, '/subscriptions'))
-          call_resource.list.all?{|subsription| subscription.is_a?(Subscription)}
+          call_resource.list.resource.all?{|subsription| subscription.is_a?(Subscription)}
         end
       end
 

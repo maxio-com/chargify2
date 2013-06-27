@@ -24,9 +24,9 @@ module Chargify2
       response      = get("/#{path}/#{id}", options)
       response_hash = response[representation.to_s.downcase.split('::').last] || {}
 
-      self.create_result(
+      self.create_response(
         representation.new(response_hash.symbolize_keys),
-        response
+        response['meta']
       )
     end
 
@@ -40,14 +40,14 @@ module Chargify2
       singular_name = representation.to_s.downcase.split('::').last
       response_hash = response[singular_name + "s"] || {}
 
-      self.create_result(
+      self.create_response(
         response_hash.map{|resource| representation.new(resource.symbolize_keys)},
-        response
+        response['meta']
       )
     end
 
-    def self.create_result(data, response)
-      Result.new(data, response["meta"]["status_code"], response["meta"]["errors"])
+    def self.create_response(resource, meta_data)
+      Response.new(resource, meta_data)
     end
 
     def list(query = {}, options = {})

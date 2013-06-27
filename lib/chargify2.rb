@@ -1,12 +1,13 @@
 require 'httparty'
 require 'rack'
 require 'hashie'
+require 'hashery'
 
 require 'chargify2/utils'
 require 'chargify2/direct'
 require 'chargify2/resource'
 require 'chargify2/client'
-require 'chargify2/result'
+require 'chargify2/response'
 
 # representations
 require 'chargify2/representation'
