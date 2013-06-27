@@ -9,22 +9,24 @@ module Chargify2
     property :response
 
     def request
-      Request[self[:request] || {}]
+      LastRequest[self[:request] || {}]
     end
 
     def response
-      Response[self[:response] || {}]
+      LastResponse[self[:response] || {}]
     end
 
     def successful?
-      response.result.status_code.to_s == '200'
+      #TODO: get this workign with hashie syntax
+      response['meta']['status_code'].to_s == '200'
     end
 
     def errors
-      (response.result.errors || []).map {|e| Hashery::OpenCascade[e.symbolize_keys]}
+      #TODO: get this workign with hashie syntax
+      (response['meta']['errors'] || []).map {|e| Hashery::OpenCascade[e.symbolize_keys]}
     end
 
-    class Request < Hashery::OpenCascade; end
-    class Response < Hashery::OpenCascade; end
+    class LastRequest < Hashery::OpenCascade; end
+    class LastResponse < Hashery::OpenCascade; end
   end
 end
