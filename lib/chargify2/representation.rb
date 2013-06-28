@@ -7,7 +7,7 @@ module Chargify2
                   else key
                   end
         new_value = case value
-                    when Hash then symbolize_keys(value)
+                    when Hash then recursive_symbolize_keys(value)
                     else value
                     end
         result[new_key] = new_value
