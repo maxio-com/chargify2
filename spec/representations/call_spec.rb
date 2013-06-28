@@ -9,7 +9,7 @@ describe Chargify2::Call do
     end
 
     it "parses the request into hashery syntax" do
-      expect(call.request.secure.nonce.to_s).to eql('836db4cb3137b6ece84e5481b377085a')
+      expect(call.request.payment_profile.first_name).to eql('Bilbo')
     end
   end
 
@@ -59,8 +59,8 @@ describe Chargify2::Call do
       "redirect_uri=http%3A%2F%2Flvh.me%3A3001%2Fsubscriptions%2F1430%2Fcredit_cards%2F1399%2Fverify&subscription_id=1430",
         "signature"=>"2286defa70a262d6373164b6f5b76b9e191e6160"},
         "payment_profile"=>
-      {"first_name"=>"{}",
-        "last_name"=>"{}",
+      {"first_name"=>"Bilbo",
+        "last_name"=>"Baggins",
         "card_number"=>"",
         "expiration_month"=>"",
         "expiration_year"=>""},
@@ -92,9 +92,9 @@ describe Chargify2::Call do
             "customer_vault_token"=>nil,
             "expiration_month"=>1,
             "expiration_year"=>2013,
-            "first_name"=>"{}",
+            "first_name"=>"Bilbo",
             "id"=>1399,
-            "last_name"=>"{}",
+            "last_name"=>"Baggins",
             "masked_card_number"=>"XXXX-XXXX-XXXX-1",
             "vault_token"=>"1"}}},
             "success"=>nil}

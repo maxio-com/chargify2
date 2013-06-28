@@ -10,12 +10,12 @@ module Chargify2
 
     def request
       input = self[:request] || {}
-      LastRequest[input.symbolize_keys]
+      LastRequest[recursive_symbolize_keys(input)]
     end
 
     def response
       input = self[:response] || {}
-      LastResponse[input.symbolize_keys]
+      LastResponse[recursive_symbolize_keys(input)]
     end
 
     def successful?
@@ -23,7 +23,7 @@ module Chargify2
     end
 
     def errors
-      (response.meta.errors || []).map {|e| Hashery::OpenCascade[e.symbolize_keys]}
+      (response.meta.errors || []).map {|e| Hashery::OpenCascade[recursive_symbolize_keys(e)]}
     end
 
     class LastRequest < Hashery::OpenCascade; end
