@@ -73,6 +73,20 @@ module Chargify2
         end
       end
 
+      describe '#update' do
+        it "performs a PUT request to 'https://<api_login>:<api_password>@api.chargify.com/api/v2/customers/123' (with authentication) when called with '123'" do
+          WebMock.stub_request(:put, client_authenticated_uri(client, '/customers/123'))
+          call_resource.update('123', {:first_name => 'Nathan'})
+          a_request(:put, client_authenticated_uri(client, '/customers/123')).should have_been_made.once
+        end
+
+        it "returns a Customer representation" do
+          WebMock.stub_request(:put, client_authenticated_uri(client, '/customers/123'))
+          call_resource.update('123', {:first_name => 'Nathan'}).should be_a(Response)
+          call_resource.update('123', {:first_name => 'Nathan'}).resource.should be_a(Customer)
+        end
+      end
+
       context 'with a non-standard base URI' do
         let(:base_uri) { 'http://www.example.com' }
         let(:client) { Client.new(valid_client_credentials.merge(:base_uri => base_uri)) }

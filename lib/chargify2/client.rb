@@ -34,6 +34,10 @@ module Chargify2
       Chargify2::CallResource.new(self)
     end
 
+    def customers
+      Chargify2::CustomerResource.new(self)
+    end
+
     def subscriptions
       Chargify2::SubscriptionResource.new(self)
     end

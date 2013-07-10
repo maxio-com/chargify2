@@ -1,4 +1,5 @@
 require 'chargify2/client'
+require 'json'
 
 module Chargify2
   # Resource orchestrates the connection from the Client to the Chargify API Resources, available
@@ -48,6 +49,22 @@ module Chargify2
 
     def list(query = {}, options = {})
       self.class.list(query, merge_options(options))
+    end
+
+    def self.update(id, body, options = {})
+      singular_name = representation.to_s.downcase.split('::').last
+      options.merge!(:body => { singular_name.to_sym => body}.to_json)
+      response      = put("/#{path}/#{id}", options)
+      response_hash = response[representation.to_s.downcase.split('::').last] || {}
+
+      self.create_response(
+        representation.new(response_hash.symbolize_keys),
+        response['meta']
+      )
+    end
+
+    def update(id, body, options = {})
+      self.class.update(id, body, merge_options(options))
     end
 
     def self.create_response(resource, meta_data)

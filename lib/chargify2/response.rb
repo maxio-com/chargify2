@@ -19,9 +19,4 @@ class Chargify2::Response
     @errors.any?
   end
 
-  #def current_page 
-  #end
-
-  #def page_count
-  #end
 end
