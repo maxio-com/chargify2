@@ -46,12 +46,12 @@ module Chargify2
       )
     end
 
-    def self.create_response(resource, meta_data)
-      Response.new(resource, meta_data)
-    end
-
     def list(query = {}, options = {})
       self.class.list(query, merge_options(options))
+    end
+
+    def self.create_response(resource, meta_data)
+      Response.new(resource, meta_data)
     end
 
     private
