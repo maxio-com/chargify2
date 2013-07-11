@@ -28,7 +28,7 @@ module Chargify2
 
     context 'with an instance configured with a client' do
       let(:client) { Client.new(valid_client_credentials) }
-      let!(:call_resource) { SubscriptionResource.new(client) }
+      let!(:subscription_resource) { SubscriptionResource.new(client) }
 
       describe '.read' do
         it 'ignores the instance configuration and uses class defaults' do
@@ -41,14 +41,14 @@ module Chargify2
       describe '#read' do
         it "performs a GET request to 'https://<api_login>:<api_password>@api.chargify.com/api/v2/subscriptions/123' (with authentication) when called with '123'" do
           WebMock.stub_request(:get, client_authenticated_uri(client, '/subscriptions/123'))
-          call_resource.read('123')
+          subscription_resource.read('123')
           a_request(:get, client_authenticated_uri(client, '/subscriptions/123')).should have_been_made.once
         end
 
         it "returns a Subscription representation" do
           WebMock.stub_request(:get, client_authenticated_uri(client, '/subscriptions/123'))
-          call_resource.read('123').should be_a(Response)
-          call_resource.read('123').resource.should be_a(Subscription)
+          subscription_resource.read('123').should be_a(Response)
+          subscription_resource.read('123').resource.should be_a(Subscription)
         end
       end
 
@@ -63,13 +63,13 @@ module Chargify2
       describe '#list' do
         it "performs a GET request to 'https://<api_login>:<api_password>@api.chargify.com/api/v2/subscriptions' (with authentication) when called" do
           WebMock.stub_request(:get, client_authenticated_uri(client, '/subscriptions'))
-          call_resource.list
+          subscription_resource.list
           a_request(:get, client_authenticated_uri(client, '/subscriptions')).should have_been_made.once
         end
 
         it "returns an array of Subscription representations" do
           WebMock.stub_request(:get, client_authenticated_uri(client, '/subscriptions'))
-          call_resource.list.resource.all?{|subsription| subscription.is_a?(Subscription)}
+          subscription_resource.list.resource.all?{|subsription| subscription.is_a?(Subscription)}
         end
       end
 
@@ -80,9 +80,23 @@ module Chargify2
         describe '#read' do
           it "has a URI of 'http://www.example.com/subscriptions'" do
             WebMock.stub_request(:get, client_authenticated_uri(client, '/subscriptions/123'))
-            call_resource.read('123')
+            subscription_resource.read('123')
             a_request(:get, client_authenticated_uri(client, '/subscriptions/123')).should have_been_made.once
           end
+        end
+      end
+
+      describe '#destroy' do
+        it "performs a DELETE request to 'https://<api_login>:<api_password>@api.chargify.com/api/v2/subscriptions/123' (with authentication) when called with '123'" do
+          WebMock.stub_request(:delete, client_authenticated_uri(client, '/subscriptions/123'))
+          subscription_resource.destroy('123')
+          a_request(:delete, client_authenticated_uri(client, '/subscriptions/123')).should have_been_made.once
+        end
+
+        it "returns a Subscription representation" do
+          WebMock.stub_request(:delete, client_authenticated_uri(client, '/subscriptions/123'))
+          subscription_resource.destroy('123').should be_a(Response)
+          subscription_resource.destroy('123', {:cancellation_message => 'see ya'}).resource.should be_a(Subscription)
         end
       end
     end

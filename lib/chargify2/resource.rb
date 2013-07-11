@@ -22,7 +22,43 @@ module Chargify2
 
     def self.read(id, query = {}, options = {})
       options.merge!(:query => query.empty? ? nil : query)
-      response      = get("/#{path}/#{id}", options)
+      response = get("/#{path}/#{id}", options)
+      response_hash = response[representation.to_s.downcase.split('::').last] || {}
+
+      self.create_response(
+        representation.new(response_hash.symbolize_keys),
+        response['meta']
+      )
+    end
+
+    def self.list(query = {}, options = {})
+      options.merge!(:query => query.empty? ? nil : query)
+      response = get("/#{path}", options)
+      singular_name = representation.to_s.downcase.split('::').last
+      response_hash = response[singular_name + "s"] || {}
+
+      self.create_response(
+        response_hash.map{|resource| representation.new(resource.symbolize_keys)},
+        response['meta']
+      )
+    end
+
+    def self.update(id, body, options = {})
+      singular_name = representation.to_s.downcase.split('::').last
+      options.merge!(:body => { singular_name.to_sym => body}.to_json)
+      response = put("/#{path}/#{id}", options)
+      response_hash = response[representation.to_s.downcase.split('::').last] || {}
+
+      self.create_response(
+        representation.new(response_hash.symbolize_keys),
+        response['meta']
+      )
+    end
+
+    def self.destroy(id, body = {}, options = {})
+      singular_name = representation.to_s.downcase.split('::').last
+      options.merge!(:body => { singular_name.to_sym => body}.to_json)
+      response = delete("/#{path}/#{id}", options)
       response_hash = response[representation.to_s.downcase.split('::').last] || {}
 
       self.create_response(
@@ -35,36 +71,16 @@ module Chargify2
       self.class.read(id, query, merge_options(options))
     end
 
-    def self.list(query = {}, options = {})
-      options.merge!(:query => query.empty? ? nil : query)
-      response      = get("/#{path}", options)
-      singular_name = representation.to_s.downcase.split('::').last
-      response_hash = response[singular_name + "s"] || {}
-
-      self.create_response(
-        response_hash.map{|resource| representation.new(resource.symbolize_keys)},
-        response['meta']
-      )
-    end
-
     def list(query = {}, options = {})
       self.class.list(query, merge_options(options))
     end
 
-    def self.update(id, body, options = {})
-      singular_name = representation.to_s.downcase.split('::').last
-      options.merge!(:body => { singular_name.to_sym => body}.to_json)
-      response      = put("/#{path}/#{id}", options)
-      response_hash = response[representation.to_s.downcase.split('::').last] || {}
-
-      self.create_response(
-        representation.new(response_hash.symbolize_keys),
-        response['meta']
-      )
-    end
-
     def update(id, body, options = {})
       self.class.update(id, body, merge_options(options))
+    end
+
+    def destroy(id, body = {}, options = {})
+      self.class.destroy(id, body, merge_options(options))
     end
 
     def self.create_response(resource, meta_data)

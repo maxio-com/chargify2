@@ -8,6 +8,6 @@ module Chargify2
     def self.representation
       Call
     end
-    
+
   end
 end
