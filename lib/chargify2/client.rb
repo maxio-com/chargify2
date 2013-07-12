@@ -41,5 +41,9 @@ module Chargify2
     def subscriptions
       Chargify2::SubscriptionResource.new(self)
     end
+
+    def products
+      Chargify2::ProductResource.new(self)
+    end
   end
 end
