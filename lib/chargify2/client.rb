@@ -45,5 +45,9 @@ module Chargify2
     def products
       Chargify2::ProductResource.new(self)
     end
+
+    def migrations
+      Chargify2::MigrationResource.new(self)
+    end
   end
 end

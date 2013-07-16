@@ -11,9 +11,11 @@ require 'chargify2/response'
 
 # representations
 require 'chargify2/representation'
+require 'chargify2/representations/billing_manifest'
 require 'chargify2/representations/call'
 require 'chargify2/representations/customer'
 require 'chargify2/representations/credit_card'
+require 'chargify2/representations/migration'
 require 'chargify2/representations/product'
 require 'chargify2/representations/product_family'
 require 'chargify2/representations/subscription'
@@ -21,6 +23,7 @@ require 'chargify2/representations/subscription'
 # resources
 require 'chargify2/resources/call_resource'
 require 'chargify2/resources/customer_resource'
+require 'chargify2/resources/migration_resource'
 require 'chargify2/resources/product_resource'
 require 'chargify2/resources/subscription_resource'
 
