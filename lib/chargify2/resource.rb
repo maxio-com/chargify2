@@ -46,7 +46,7 @@ module Chargify2
     def self.create(body, options = {})
       singular_name = representation.to_s.downcase.split('::').last
       options.merge!(:body => { singular_name.to_sym => body}.to_json)
-      response = put("/#{path}", options)
+      response = post("/#{path}", options)
       response_hash = response[representation.to_s.downcase.split('::').last] || {}
 
       self.create_response(
