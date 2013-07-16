@@ -43,6 +43,18 @@ module Chargify2
       )
     end
 
+    def self.create(body, options = {})
+      singular_name = representation.to_s.downcase.split('::').last
+      options.merge!(:body => { singular_name.to_sym => body}.to_json)
+      response = put("/#{path}", options)
+      response_hash = response[representation.to_s.downcase.split('::').last] || {}
+
+      self.create_response(
+        representation.new(response_hash.symbolize_keys),
+        response['meta']
+      )
+    end
+
     def self.update(id, body, options = {})
       singular_name = representation.to_s.downcase.split('::').last
       options.merge!(:body => { singular_name.to_sym => body}.to_json)
@@ -73,6 +85,10 @@ module Chargify2
 
     def list(query = {}, options = {})
       self.class.list(query, merge_options(options))
+    end
+
+    def create(body, options = {})
+      self.class.create(body, merge_options(options))
     end
 
     def update(id, body, options = {})

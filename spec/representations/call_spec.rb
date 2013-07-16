@@ -23,7 +23,6 @@ describe Chargify2::Call do
     end
   end
 
-
   describe "#successful?" do
     it "is true when success is 200" do
       call = described_class.new(raw_response(status_code: 200))
