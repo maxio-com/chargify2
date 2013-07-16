@@ -14,7 +14,7 @@ module Chargify2
     end
 
     def self.preview(subscription_id, product_id, options = {})
-      options.merge!(body: { subscription_id: subscription_id, product_id: product_id }.to_json)
+      options.merge!(body: {migration: { subscription_id: subscription_id, product_id: product_id} }.to_json)
       response = post("/#{path}/preview", options)
       response_hash = response[representation.to_s.downcase.split('::').last] || {}
 
