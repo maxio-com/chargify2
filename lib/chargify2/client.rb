@@ -38,16 +38,20 @@ module Chargify2
       Chargify2::CustomerResource.new(self)
     end
 
-    def subscriptions
-      Chargify2::SubscriptionResource.new(self)
+    def migrations
+      Chargify2::MigrationResource.new(self)
     end
 
     def products
       Chargify2::ProductResource.new(self)
     end
 
-    def migrations
-      Chargify2::MigrationResource.new(self)
+    def statements
+      Chargify2::StatementResource.new(self)
+    end
+
+    def subscriptions
+      Chargify2::SubscriptionResource.new(self)
     end
   end
 end
