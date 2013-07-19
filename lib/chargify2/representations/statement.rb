@@ -1,9 +1,13 @@
 module Chargify2
   class Statement < Representation
-    property :id
     property :subscription, transform_with: lambda {|subscription| Subscription.new(subscription)}
-    property :customer, transform_with: lambda {|customer| Customer.new(customer)}
-    property :invoice, transform_with: lambda {|invoice| Invoice.new(invoice)}
+    property :customer,     transform_with: lambda {|customer| Customer.new(customer)}
+
+    property :invoice,      transform_with: lambda {|invoice| Invoice.new(invoice)}
+    property :transactions, transform_with: lambda {|transactions| transactions.map{|t| Transaction.new(t)}}
+    property :events,       trnasform_with: lambda {|events| events.map{|e| Event.new(e)}}
+
+    property :id
     property :created_at
     property :updated_at
     property :opened_at
@@ -13,6 +17,19 @@ module Chargify2
     property :starting_balance_in_cents
     property :ending_balance_in_cents
     property :memo
-    property :transactions, transform_with: lambda {|transactions| transactions.map{|t| Transaction.new(t)}}
+
+    property :billing_address
+    property :billing_address_2
+    property :billing_city
+    property :billing_state
+    property :billing_country
+    property :billing_zip
+
+    property :shipping_address
+    property :shipping_address_2
+    property :shipping_city
+    property :shipping_state
+    property :shipping_country
+    property :shipping_zip
   end
 end
