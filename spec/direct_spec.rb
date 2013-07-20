@@ -45,7 +45,7 @@ module Chargify2
         
         sp.timestamp.should == timestamp
         sp.nonce.should     == nonce
-        sp.data.should      == data.symbolize_keys
+        sp.data.should      == data.recursive_symbolize_keys
       end
     end
 

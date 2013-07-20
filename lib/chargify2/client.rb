@@ -18,7 +18,7 @@ module Chargify2
     attr_reader :base_uri
 
     def initialize(args = {})
-      options = args.symbolize_keys
+      options = args.recursive_symbolize_keys
 
       @api_id       = options[:api_id]
       @api_password = options[:api_password]

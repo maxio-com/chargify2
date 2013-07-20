@@ -7,13 +7,18 @@ module Chargify2
     property :success
     property :request
     property :response
+
+    Request  = Class.new(Hashery::OpenCascade)
+    Response = Class.new(Hashery::OpenCascade)
     
     def request
-      Request[self[:request] || {}]
+      h = self[:request] || {}
+      Request[h.recursive_symbolize_keys]
     end
     
     def response
-      Response[self[:response] || {}]
+      h = self[:response] || {}
+      Response[h.recursive_symbolize_keys]
     end
     
     def successful?
@@ -21,10 +26,8 @@ module Chargify2
     end
     
     def errors
-      (response.result.errors || []).map {|e| Hashery::OpenCascade[e.symbolize_keys]}
+      (response.result.errors || []).map {|e| Hashery::OpenCascade[e.recursive_symbolize_keys]}
     end
     
-    class Request < Hashery::OpenCascade; end
-    class Response < Hashery::OpenCascade; end
   end
 end

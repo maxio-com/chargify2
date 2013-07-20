@@ -37,7 +37,7 @@ module Chargify2
       response = get("/#{path}/#{id}", options)
 
       response_hash = response[representation.to_s.downcase.split('::').last] || {}
-      representation.new(response_hash.symbolize_keys)
+      representation.new(response_hash.recursive_symbolize_keys)
     end
 
     def read(id, query = {}, options = {})
