@@ -4,11 +4,11 @@ Gem::Specification.new do |s|
   s.rubygems_version = '1.6.2'
 
   s.name    = 'chargify2'
-  s.version = '0.2.5'
+  s.version = '0.2.6'
   s.date    = '2011-10-28'
   s.summary = %q{Chargify API V2 Ruby Wrapper}
   s.description = ''
-  s.authors = ["Michael Klett", "Shay Frendt"]
+  s.authors = ["Michael Klett", "Shay Frendt", "Jeremy W. Rowe"]
   s.email = %q{michael@webadvocate.com}
   s.homepage = %q{http://github.com/chargify/chargify2}
   s.licenses = ["MIT"]
