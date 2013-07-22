@@ -5,7 +5,7 @@ module Chargify2
 
     property :invoice,      transform_with: lambda {|invoice| Invoice.new(invoice)}
     property :transactions, transform_with: lambda {|transactions| transactions.map{|t| Transaction.new(t)}}
-    property :events,       trnasform_with: lambda {|events| events.map{|e| Event.new(e)}}
+    property :events,       transform_with: lambda {|events| events.map{|e| Event.new(e)}}
 
     property :id
     property :index
