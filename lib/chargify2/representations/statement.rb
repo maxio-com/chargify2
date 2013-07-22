@@ -18,14 +18,14 @@ module Chargify2
     property :starting_balance_in_cents
     property :ending_balance_in_cents
     property :memo
-
+    proprety :product_name
+    proprety :product_family_name
     property :billing_address
     property :billing_address_2
     property :billing_city
     property :billing_state
     property :billing_country
     property :billing_zip
-
     property :shipping_address
     property :shipping_address_2
     property :shipping_city
