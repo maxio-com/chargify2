@@ -14,6 +14,6 @@ module Chargify2
     property :paid_at
     property :created_at
     property :updated_at
-    property :remaining_balance_in_cents
+    property :amount_due_in_cents
   end
 end
