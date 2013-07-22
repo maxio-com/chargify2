@@ -8,6 +8,7 @@ module Chargify2
     property :events,       trnasform_with: lambda {|events| events.map{|e| Event.new(e)}}
 
     property :id
+    property :index
     property :created_at
     property :updated_at
     property :opened_at
