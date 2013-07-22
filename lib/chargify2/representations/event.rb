@@ -3,8 +3,6 @@ module Chargify2
     property :id
     property :key
     property :message
-    property :subscription_id
-    property :event_specific_data
     property :created_at
   end
 end
