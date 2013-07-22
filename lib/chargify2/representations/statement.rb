@@ -18,8 +18,8 @@ module Chargify2
     property :starting_balance_in_cents
     property :ending_balance_in_cents
     property :memo
-    proprety :product_name
-    proprety :product_family_name
+    property :product_name
+    property :product_family_name
     property :billing_address
     property :billing_address_2
     property :billing_city
