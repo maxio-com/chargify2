@@ -34,5 +34,7 @@ module Chargify2
     property :shipping_zip
     property :business_name
     property :business_email
+    property :customer_first_name
+    property :customer_last_name
   end
 end
