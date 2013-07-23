@@ -13,5 +13,8 @@ module Chargify2
     property :product_id
     property :payment_id
     property :gateway_transaction_id
+    property :card_type
+    property :card_number
+    property :card_expiration
   end
 end
