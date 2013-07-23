@@ -1,8 +1,5 @@
 module Chargify2
   class Invoice < Representation
-    property :charges
-    property :payments_and_credits
-
     property :id
     property :number
     property :display_number
@@ -15,5 +12,6 @@ module Chargify2
     property :created_at
     property :updated_at
     property :amount_due_in_cents
+    property :transactions, transform_with: lambda {|transactions| transactions.map{|t| Transaction.new(t)}}
   end
 end
