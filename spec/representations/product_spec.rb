@@ -12,7 +12,7 @@ describe Chargify2::Product do
   end
 
   it "has access to the product family" do
-    expect(product.product_family.name).to eql "Acme Online"
+    expect(product.product_family_name).to eql "Acme Online"
   end
 
   private
@@ -40,11 +40,6 @@ describe Chargify2::Product do
       "updated_at"=>"2013-06-26T11:41:04-04:00",
       "archived_at"=>nil,
       "update_return_url"=>nil,
-      "product_family"=>
-        {"accounting_code"=>nil,
-          "description"=>nil,
-          "handle"=>"acme-online",
-          "id"=>10,
-          "name"=>"Acme Online"}}
+      "product_family_name"=> "Acme Online"}
   end
 end

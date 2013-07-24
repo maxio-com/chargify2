@@ -84,12 +84,7 @@ describe Chargify2::Subscription do
         "trial_price_in_cents"=>nil,
         "update_return_url"=>"",
         "updated_at"=>"2013-06-11T09:23:18-04:00",
-        "product_family"=> {
-          "accounting_code"=>nil,
-          "description"=>"",
-          "handle"=>"basic",
-          "id"=>16,
-          "name"=>"Baisc Plan"}
+        "product_family_name" => "Basic Plan",
        },
       "credit_card"=> {
         "billing_address"=>"",
