@@ -68,11 +68,10 @@ describe Chargify2::Statement do
       "paid_at"=>"2013-07-19T15:46:51-04:00",
       "created_at"=>"2013-07-19T15:46:51-04:00",
       "updated_at"=>"2013-07-19T15:46:51-04:00",
-      "remaining_balance_in_cents"=>0,
+      "total_amount_in_cents"=>0,
       "number"=>1,
       "display_number" => "000001",
-      "charges"=>[],
-      "payments_and_credits"=>[]
+      "transactions"=>[]
     },
     "events"=>[],
     "transactions"=> [
