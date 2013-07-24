@@ -18,6 +18,7 @@ module Chargify2
     property :starting_balance_in_cents
     property :ending_balance_in_cents
     property :memo
+    property :product_id
     property :product_name
     property :product_family_name
     property :billing_address

@@ -57,6 +57,9 @@ describe Chargify2::Statement do
     "shipping_state"=>nil,
     "shipping_country"=>nil,
     "shipping_zip"=>nil,
+    "product_id" => 222,
+    "product_family_name" => "I'ma",
+    "product_name" =>"Pro",
     "invoice"=>
     {
       "id"=>1,
