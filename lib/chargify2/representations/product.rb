@@ -23,6 +23,7 @@ module Chargify2
     property :updated_at
     property :archived_at
     property :product_family_name
+    property :product_family, transform_with: lambda {|family| ProductFamily.new(family)}
   end
 end
 
