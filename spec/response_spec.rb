@@ -61,4 +61,46 @@ describe Chargify2::Response do
       expect(response.errors?).to be_false
     end
   end
+
+  describe "#total_count" do
+    it "returns the total_count from the meta hash if found" do
+      meta = { total_count: 10, errors: []}
+      response = described_class.new(Object.new, meta)
+      expect(response.total_count).to be(10)
+    end
+
+    it "returns 0 if total_count is nil" do
+      meta = { total_count: nil, errors: []}
+      response = described_class.new(Object.new, meta)
+      expect(response.total_count).to be(0)
+    end
+  end
+
+  describe "#current_page" do
+    it "returns the current_page from the meta hash if found" do
+      meta = { current_page: 99, errors: []}
+      response = described_class.new(Object.new, meta)
+      expect(response.current_page).to be(99)
+    end
+
+    it "returns 0 if current_page is nil" do
+      meta = { current_page: nil, errors: []}
+      response = described_class.new(Object.new, meta)
+      expect(response.current_page).to be(0)
+    end
+  end
+
+  describe "#total_pages" do
+    it "returns the total_pages from the meta hash if found" do
+      meta = { total_pages: 191, errors: []}
+      response = described_class.new(Object.new, meta)
+      expect(response.total_pages).to be(191)
+    end
+
+    it "returns 0 if total_pages is nil" do
+      meta = { total_pages: nil, errors: []}
+      response = described_class.new(Object.new, meta)
+      expect(response.total_pages).to be(0)
+    end
+  end
 end

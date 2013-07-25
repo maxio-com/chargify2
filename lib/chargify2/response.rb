@@ -19,4 +19,15 @@ class Chargify2::Response
     @errors.any?
   end
 
+  def total_count
+    @meta[:total_count] || 0
+  end
+
+  def current_page
+    @meta[:current_page] || 0
+  end
+
+  def total_pages
+    @meta[:total_pages] || 0
+  end
 end
