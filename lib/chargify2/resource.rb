@@ -28,7 +28,7 @@ module Chargify2
 
     def self.read(id, query = {}, options = {})
       options.merge!(:query => query.empty? ? nil : query)
-      response = get("/#{path}/#{id}", options).value
+      response = get("/#{path}/#{id}", options)
       response = Chargify2::Utils.deep_symbolize_keys(response)
       response_hash = response.send(representation.to_s.downcase.split('::').last) || {}
 
@@ -44,7 +44,7 @@ module Chargify2
 
     def self.list(query = {}, options = {})
       options.merge!(:query => query.empty? ? nil : query)
-      response = get("/#{path}", options).value
+      response = get("/#{path}", options)
       response = Chargify2::Utils.deep_symbolize_keys(response)
       singular_name = representation.to_s.downcase.split('::').last
       response_hash = response.send((singular_name + "s")) || {}
@@ -62,7 +62,7 @@ module Chargify2
     def self.create(body, options = {})
       singular_name = representation.to_s.downcase.split('::').last
       options.merge!(:body => { singular_name.to_sym => body}.to_json)
-      response = post("/#{path}", options).value
+      response = post("/#{path}", options)
       response = Chargify2::Utils.deep_symbolize_keys(response)
       response_hash = response.send(representation.to_s.downcase.split('::').last) || {}
 
@@ -79,7 +79,7 @@ module Chargify2
     def self.update(id, body, options = {})
       singular_name = representation.to_s.downcase.split('::').last
       options.merge!(:body => { singular_name.to_sym => body}.to_json)
-      response = put("/#{path}/#{id}", options).value
+      response = put("/#{path}/#{id}", options)
       response = Chargify2::Utils.deep_symbolize_keys(response)
       response_hash = response.send(representation.to_s.downcase.split('::').last) || {}
 
@@ -96,7 +96,7 @@ module Chargify2
     def self.destroy(id, body = {}, options = {})
       singular_name = representation.to_s.downcase.split('::').last
       options.merge!(:body => { singular_name.to_sym => body}.to_json)
-      response = delete("/#{path}/#{id}", options).value
+      response = delete("/#{path}/#{id}", options)
       response = Chargify2::Utils.deep_symbolize_keys(response)
       response_hash = response.send(representation.to_s.downcase.split('::').last) || {}
 
