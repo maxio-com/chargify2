@@ -20,10 +20,10 @@ module Chargify2
     def initialize(args = {})
       options = Utils.deep_symbolize_keys(args)
 
-      @api_id       = options[:api_id]
-      @api_password = options[:api_password]
-      @api_secret   = options[:api_secret]
-      @base_uri     = options[:base_uri] || BASE_URI
+      @api_id       = options.api_id
+      @api_password = options.api_password
+      @api_secret   = options.api_secret
+      @base_uri     = options.base_uri || BASE_URI
     end
 
     def direct

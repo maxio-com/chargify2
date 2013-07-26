@@ -10,6 +10,5 @@ module Chargify2
         (response.meta[:errors] || []).map {|e| Hashie::Mash.new(e) }
       end
     end
-
   end
 end

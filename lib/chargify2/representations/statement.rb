@@ -1,15 +1,15 @@
 module Chargify2
   class Statement < Representation
     def subscription
-      @subscription ||= Subscription.new(self[:subscription] || {})
+      @subscription ||= Subscription.new((self[:subscription] || {}))
     end
 
     def customer
-      @customer ||= Customer.new(self[:customer] || {})
+      @customer ||= Customer.new((self[:customer] || {}))
     end
 
     def invoice
-      @invoice ||= Invoice.new(self[:invoice] || {})
+      @invoice ||= Invoice.new((self[:invoice] || {}))
     end
 
     def transactions

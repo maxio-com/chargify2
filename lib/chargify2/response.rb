@@ -12,7 +12,8 @@ class Chargify2::Response
   end
 
   def successful?
-    status_code.to_s == '200'
+    code = status_code.to_i
+    code >= 200 && code < 300
   end
 
   def errors?
@@ -20,14 +21,14 @@ class Chargify2::Response
   end
 
   def total_count
-    @meta[:total_count] || 0
+    @meta.total_count || 0
   end
 
   def current_page
-    @meta[:current_page] || 0
+    @meta.current_page || 0
   end
 
   def total_pages
-    @meta[:total_pages] || 0
+    @meta.total_pages || 0
   end
 end

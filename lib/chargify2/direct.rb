@@ -110,12 +110,12 @@ module Chargify2
         @api_id       = client.api_id
         @secret       = client.api_secret
 
-        @status_code  = args[:status_code]
-        @timestamp    = args[:timestamp]
-        @nonce        = args[:nonce]
-        @result_code  = args[:result_code]
-        @call_id      = args[:call_id]
-        @signature    = args[:signature]
+        @status_code  = args.status_code
+        @timestamp    = args.timestamp
+        @nonce        = args.nonce
+        @result_code  = args.result_code
+        @call_id      = args.call_id
+        @signature    = args.signature
 
         validate_args
       end
