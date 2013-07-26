@@ -1,4 +1,8 @@
 module Chargify2
-  Customer = Class.new(Representation)
+  class Customer < Representation
+    def zip
+      self[:zip]
+    end
+  end
 end
 

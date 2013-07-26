@@ -1,5 +1,8 @@
 module Chargify2
   class Subscription < Representation
+    def index
+      self[:index]
+    end
 
     def customer
       @customer ||= Customer.new((self[:customer] || {}))
