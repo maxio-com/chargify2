@@ -1,5 +1,7 @@
 module Chargify2
   class Statement < Representation
+
+    # Overridden because this is a method on the Hash class
     def index
       self[:index]
     end
