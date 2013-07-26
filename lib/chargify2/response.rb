@@ -6,7 +6,7 @@ class Chargify2::Response
 
   def initialize(resource, meta)
     @resource    = resource
-    @meta        = (meta || {}).symbolize_keys
+    @meta        = Chargify2::Utils.deep_symbolize_keys((meta || {}))
     @status_code = @meta[:status_code]
     @errors      = @meta[:errors] || []
   end

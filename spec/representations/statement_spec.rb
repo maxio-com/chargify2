@@ -11,12 +11,7 @@ describe Chargify2::Statement do
     expect(statement.id).to eql(123)
   end
 
-  it "has access to the subscription", pending: "we don't have a need for nested subscription yet" do
-    expect(statement.subscription.class).to eql(Chargify2::Subscription)
-    expect(statement.subscription.state).to eql("active")
-  end
-
-  it "has access to the customer", pending: "we don't have a need for nested cusstomer yet" do
+  it "has access to the customer" do
     expect(statement.customer.class).to eql(Chargify2::Customer)
     expect(statement.customer.first_name).to eql("David")
   end
@@ -75,6 +70,21 @@ describe Chargify2::Statement do
       "number"=>1,
       "display_number" => "000001",
       "transactions"=>[]
+    },
+    "customer" => {
+      :id           => 99,
+      :first_name   => "David",
+      :last_name    => "Smith",
+      :email        => "david.smith@example.com",
+      :organization => "Org",
+      :reference    => "ref",
+      :address      => "addy1",
+      :address_2    => "add2",
+      :city         => "my city",
+      :state        => "my state",
+      :zip          => "my zip",
+      :country      => "US of A",
+      :phone        => "digits",
     },
     "events"=>[],
     "transactions"=> [

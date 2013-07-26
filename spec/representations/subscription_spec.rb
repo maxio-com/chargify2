@@ -26,6 +26,13 @@ describe Chargify2::Subscription do
       expect(subscription.credit_card).to be_a(Chargify2::CreditCard)
       expect(subscription.credit_card.id).to eql(1399)
     end
+
+    it "allows for a missing credit card" do
+      response = raw_response
+      response.delete("credit_card")
+      subscription = described_class.new(response)
+      expect(subscription.credit_card.first_name).to be_nil
+    end
   end
 
   private

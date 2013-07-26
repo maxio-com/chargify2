@@ -4,20 +4,12 @@ describe Chargify2::Call do
   let(:call) { described_class.new(raw_response) }
 
   describe "#request" do
-    it "creates a LastRequest object when initialized" do
-      expect(call.request).to be_a(Chargify2::Call::LastRequest)
-    end
-
     it "parses the request into hashery syntax" do
       expect(call.request.payment_profile.first_name).to eql('Bilbo')
     end
   end
 
   describe "#response" do
-    it "creates a LastResponse object when initialized" do
-      expect(call.response).to be_a(Chargify2::Call::LastResponse)
-    end
-
     it "parses the response into hashery syntax" do
       expect(call.response.meta.status_code.to_s).to eql('422')
     end

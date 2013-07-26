@@ -31,5 +31,3 @@ require 'chargify2/resources/migration_resource'
 require 'chargify2/resources/product_resource'
 require 'chargify2/resources/statement_resource'
 require 'chargify2/resources/subscription_resource'
-
-Hash.send(:include, Chargify2::Utils::HashExtensions)

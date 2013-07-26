@@ -1,41 +1,27 @@
 module Chargify2
   class Statement < Representation
-    property :subscription, transform_with: lambda {|subscription| Subscription.new(subscription)}
-    property :customer,     transform_with: lambda {|customer| Customer.new(customer)}
+    def subscription
+      @subscription ||= Subscription.new(self[:subscription] || {})
+    end
 
-    property :invoice,      transform_with: lambda {|invoice| Invoice.new(invoice)}
-    property :transactions, transform_with: lambda {|transactions| transactions.map{|t| Transaction.new(t)}}
-    property :events,       transform_with: lambda {|events| events.map{|e| Event.new(e)}}
+    def customer
+      @customer ||= Customer.new(self[:customer] || {})
+    end
 
-    property :id
-    property :index
-    property :created_at
-    property :updated_at
-    property :opened_at
-    property :closed_at
-    property :settled_at
-    property :future_payments
-    property :starting_balance_in_cents
-    property :ending_balance_in_cents
-    property :memo
-    property :product_id
-    property :product_name
-    property :product_family_name
-    property :billing_address
-    property :billing_address_2
-    property :billing_city
-    property :billing_state
-    property :billing_country
-    property :billing_zip
-    property :shipping_address
-    property :shipping_address_2
-    property :shipping_city
-    property :shipping_state
-    property :shipping_country
-    property :shipping_zip
-    property :business_name
-    property :business_email
-    property :customer_first_name
-    property :customer_last_name
+    def invoice
+      @invoice ||= Invoice.new(self[:invoice] || {})
+    end
+
+    def transactions
+      @transactions ||= begin
+       (self[:transactions] || {}).map{|t| Transaction.new(t) }
+      end
+    end
+
+    def events
+      @events ||= begin
+       (self[:events] || {}).map{|e| Event.new(e) }
+      end
+    end
   end
 end

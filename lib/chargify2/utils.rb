@@ -1,16 +1,19 @@
 module Chargify2
   module Utils
-    module HashExtensions
-      # Symbolizes keys for flat or nested hashes (operates recursively on nested hashes)
-      def symbolize_keys
-        Hash[
-          self.map { |key, value|
-            k = key.to_sym
-            v = value.is_a?(Hash) ? value.symbolize_keys : value
-            [k,v]
-          }
-        ]
-      end
+    def self.deep_symbolize_keys(hash)
+      hash = hash || {}
+      hash.inject(Hashie::Mash.new({})){|result, (key, value)|
+        new_key = case key
+                  when String then key.to_sym
+                  else key
+                  end
+        new_value = case value
+                    when Hash then Hashie::Mash.new(deep_symbolize_keys(value))
+                    else value
+                    end
+        result[new_key] = new_value
+        result
+      }
     end
   end
 end
