@@ -1,5 +1,9 @@
 module Chargify2
   class Statement < Representation
+    def index
+      self[:index]
+    end
+
     def subscription
       @subscription ||= Subscription.new((self[:subscription] || {}))
     end
