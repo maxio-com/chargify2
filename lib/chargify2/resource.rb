@@ -27,9 +27,10 @@ module Chargify2
     end
 
     def self.read(id, query = {}, options = {})
+      assembled_path = assemble_path(query)
       options.merge!(:query => query.empty? ? nil : query)
-      response = get("/#{path}/#{id}", options)
-      response = Chargify2::Utils.deep_symbolize_keys(response)
+      response = get("/#{assembled_path}/#{id}", options)
+      response = Chargify2::Utils.deep_symbolize_keys(response.to_h)
       response_hash = response.send(representation.to_s.downcase.split('::').last) || {}
 
       self.create_response(
@@ -43,9 +44,10 @@ module Chargify2
     end
 
     def self.list(query = {}, options = {})
+      assembled_path = assemble_path(query)
       options.merge!(:query => query.empty? ? nil : query)
-      response = get("/#{path}", options)
-      response = Chargify2::Utils.deep_symbolize_keys(response)
+      response = get("/#{assembled_path}", options)
+      response = Chargify2::Utils.deep_symbolize_keys(response.to_h)
       singular_name = representation.to_s.downcase.split('::').last
       response_hash = response.send((singular_name + "s")) || {}
 
@@ -60,10 +62,11 @@ module Chargify2
     end
 
     def self.create(body, options = {})
+      assembled_path = assemble_path(query)
       singular_name = representation.to_s.downcase.split('::').last
       options.merge!(:body => { singular_name.to_sym => body}.to_json)
-      response = post("/#{path}", options)
-      response = Chargify2::Utils.deep_symbolize_keys(response)
+      response = post("/#{assembled_path}", options)
+      response = Chargify2::Utils.deep_symbolize_keys(response.to_h)
       response_hash = response.send(representation.to_s.downcase.split('::').last) || {}
 
       self.create_response(
@@ -77,10 +80,11 @@ module Chargify2
     end
 
     def self.update(id, body, options = {})
+      assembled_path = assemble_path(body)
       singular_name = representation.to_s.downcase.split('::').last
       options.merge!(:body => { singular_name.to_sym => body}.to_json)
-      response = put("/#{path}/#{id}", options)
-      response = Chargify2::Utils.deep_symbolize_keys(response)
+      response = put("/#{assembled_path}/#{id}", options)
+      response = Chargify2::Utils.deep_symbolize_keys(response.to_h)
       response_hash = response.send(representation.to_s.downcase.split('::').last) || {}
 
       self.create_response(
@@ -94,10 +98,11 @@ module Chargify2
     end
 
     def self.destroy(id, body = {}, options = {})
+      assembled_path = assemble_path(body)
       singular_name = representation.to_s.downcase.split('::').last
       options.merge!(:body => { singular_name.to_sym => body}.to_json)
-      response = delete("/#{path}/#{id}", options)
-      response = Chargify2::Utils.deep_symbolize_keys(response)
+      response = delete("/#{assembled_path}/#{id}", options)
+      response = Chargify2::Utils.deep_symbolize_keys(response.to_h)
       response_hash = response.send(representation.to_s.downcase.split('::').last) || {}
 
       self.create_response(
@@ -108,6 +113,17 @@ module Chargify2
 
     def self.create_response(resource, meta_data)
       Response.new(resource, meta_data)
+    end
+
+    def self.assemble_path(params)
+      new_path = path.dup
+      params.each do |key, value|
+        if new_path.include?(":#{key}")
+          new_path.gsub!(":#{key}", value.to_s)
+          params.delete(key)
+        end
+      end
+      new_path
     end
 
     private

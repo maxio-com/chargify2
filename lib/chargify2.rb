@@ -23,6 +23,7 @@ require 'chargify2/representations/product_family'
 require 'chargify2/representations/statement'
 require 'chargify2/representations/subscription'
 require 'chargify2/representations/transaction'
+require 'chargify2/representations/subscriptions_component'
 
 # resources
 require 'chargify2/resources/call_resource'
@@ -31,3 +32,4 @@ require 'chargify2/resources/migration_resource'
 require 'chargify2/resources/product_resource'
 require 'chargify2/resources/statement_resource'
 require 'chargify2/resources/subscription_resource'
+require 'chargify2/resources/subscriptions_component_resource'
