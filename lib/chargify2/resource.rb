@@ -61,7 +61,7 @@ module Chargify2
     end
 
     def self.create(body, options = {})
-      assembled_path = assemble_path(query)
+      assembled_path = assemble_path(options)
       options.merge!(:body => { singular_name.to_sym => body}.to_json)
       response = post("/#{assembled_path}", options)
       response = Chargify2::Utils.deep_symbolize_keys(response.to_h)
