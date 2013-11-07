@@ -36,4 +36,21 @@ describe Chargify2::Resource do
     end
   end
 
+  describe ".singular_name" do
+    module Bar
+      class FoosBalls < Chargify2::Representation
+      end
+    end
+
+    class BazResource < Chargify2::Resource
+      def self.representation
+        Bar::FoosBalls
+      end
+    end
+
+    it "converts the resource name to a singular, downcased string" do
+      expect(BazResource.singular_name).to eql("foos_balls")
+    end
+  end
+
 end
