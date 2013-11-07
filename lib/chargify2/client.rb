@@ -53,5 +53,9 @@ module Chargify2
     def subscriptions
       Chargify2::SubscriptionResource.new(self)
     end
+
+    def subscriptions_components
+      Chargify2::SubscriptionsComponentResource.new(self)
+    end
   end
 end
