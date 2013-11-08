@@ -15,8 +15,17 @@ module Chargify2
       'allocations'
     end
 
-    def self.plural_name
-      'allocations'
+    def self.create(body, options = {})
+      assembled_path = assemble_path(options)
+      options.merge!(:body => { allocations: body }.to_json)
+      response = post("/#{assembled_path}", options)
+      response = Chargify2::Utils.deep_symbolize_keys(response.to_h)
+      response_hash = response.send('billing_manifest') || {}
+
+      self.create_response(
+        representation.new(response_hash),
+        response.meta
+      )
     end
   end
 end
