@@ -57,5 +57,13 @@ module Chargify2
     def subscriptions_components
       Chargify2::SubscriptionsComponentResource.new(self)
     end
+
+    def allocations
+      Chargify2::AllocationResource.new(self)
+    end
+
+    def allocation_previews
+      Chargify2::AllocationPreviewResource.new(self)
+    end
   end
 end
