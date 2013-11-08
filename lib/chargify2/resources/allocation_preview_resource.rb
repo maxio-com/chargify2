@@ -7,6 +7,17 @@ module Chargify2
     def self.representation
       BillingManifest
     end
+
+    # singular and plural name are the same due to bulk
+    # updates.
+
+    def self.singular_name
+      'allocations'
+    end
+
+    def self.plural_name
+      'allocations'
+    end
   end
 end
 

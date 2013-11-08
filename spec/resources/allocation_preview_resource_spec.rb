@@ -9,6 +9,14 @@ module Chargify2
     it "represents the BillingManifest resource" do
       expect(described_class.representation).to eql(BillingManifest)
     end
+
+    it "has a singular name of allocations" do
+      expect(described_class.singular_name).to eql("allocations")
+    end
+
+    it "has a plural name of allocations" do
+      expect(described_class.plural_name).to eql("allocations")
+    end
   end
 end
 
