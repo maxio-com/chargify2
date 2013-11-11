@@ -20,7 +20,7 @@ module Chargify2
       options.merge!(:body => { allocations: body }.to_json)
       response = post("/#{assembled_path}", options)
       response = Chargify2::Utils.deep_symbolize_keys(response.to_h)
-      response_hash = response.send('allocation_preview') || {}
+      response_hash = response.allocation_preview || {}
 
       self.create_response(
         representation.new(response_hash),
