@@ -17,7 +17,7 @@ module Chargify2
       response_hash = response.allocations || {}
 
       self.create_response(
-        representation.new(response_hash),
+        response_hash.map{|resource| representation.new(resource)},
         response.meta
       )
     end
