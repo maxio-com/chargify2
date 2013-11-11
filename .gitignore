@@ -6,4 +6,5 @@ doc
 pkg
 .DS_Store
 .rvmrc
+.ruby-version
 example.rb

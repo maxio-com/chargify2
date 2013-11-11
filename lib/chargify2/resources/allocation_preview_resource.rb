@@ -5,7 +5,7 @@ module Chargify2
     end
 
     def self.representation
-      BillingManifest
+      AllocationPreview
     end
 
     # singular and plural name are the same due to bulk
@@ -20,7 +20,7 @@ module Chargify2
       options.merge!(:body => { allocations: body }.to_json)
       response = post("/#{assembled_path}", options)
       response = Chargify2::Utils.deep_symbolize_keys(response.to_h)
-      response_hash = response.send('billing_manifest') || {}
+      response_hash = response.send('allocation_preview') || {}
 
       self.create_response(
         representation.new(response_hash),

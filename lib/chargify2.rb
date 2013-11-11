@@ -12,6 +12,7 @@ require 'chargify2/response'
 # representations
 require 'chargify2/representation'
 require 'chargify2/representations/billing_manifest'
+require 'chargify2/representations/allocation_preview'
 require 'chargify2/representations/call'
 require 'chargify2/representations/customer'
 require 'chargify2/representations/credit_card'
