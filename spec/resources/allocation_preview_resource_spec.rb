@@ -6,7 +6,7 @@ module Chargify2
       expect(described_class.path).to eql('subscriptions/:subscription_id/allocations/preview')
     end
 
-    it "represents the BillingManifest resource" do
+    it "represents the AllocationPreview resource" do
       expect(described_class.representation).to eql(AllocationPreview)
     end
   end
