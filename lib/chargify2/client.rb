@@ -65,5 +65,9 @@ module Chargify2
     def allocation_previews
       Chargify2::AllocationPreviewResource.new(self)
     end
+
+    def renewal_previews
+      Chargify2::RenewalPreviewResource.new(self)
+    end
   end
 end
