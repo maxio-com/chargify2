@@ -1,8 +1,8 @@
-source "http://rubygems.org"
+source 'http://rubygems.org'
 
-# Specify your gem's dependencies in chargify2.gemspec
 gemspec
 
 group :development do
-  gem "debugger", :platforms => [:ruby_19]
+  gem 'debugger', :platforms => [:mri_19]
+  gem 'byebug', :platforms => [:mri_20, :mri_21]
 end
