@@ -16,7 +16,7 @@ module Chargify2
     end
 
     def self.signature(message, secret)
-      OpenSSL::HMAC.hexdigest(OpenSSL::Digest::Digest.new('sha1'), secret, message)
+      OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new('sha1'), secret, message)
     end
 
     private
