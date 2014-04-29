@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    chargify2 (0.2.7)
+    chargify2 (0.2.8)
       hashery (~> 2.1.0)
       hashie
       httparty
