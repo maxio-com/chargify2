@@ -27,6 +27,7 @@ require 'chargify2/representations/transaction'
 require 'chargify2/representations/subscriptions_component'
 require 'chargify2/representations/allocation'
 require 'chargify2/representations/renewal_preview'
+require 'chargify2/representations/metadatum'
 
 # resources
 require 'chargify2/resources/call_resource'
@@ -39,3 +40,4 @@ require 'chargify2/resources/subscriptions_component_resource'
 require 'chargify2/resources/allocation_resource'
 require 'chargify2/resources/allocation_preview_resource'
 require 'chargify2/resources/renewal_preview_resource'
+require 'chargify2/resources/metadatum_resource'
