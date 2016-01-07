@@ -69,5 +69,9 @@ module Chargify2
     def renewal_previews
       Chargify2::RenewalPreviewResource.new(self)
     end
+
+    def metadata
+      Chargify2::MetadatumResource.new(self)
+    end
   end
 end
