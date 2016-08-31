@@ -2,6 +2,7 @@ require 'httparty'
 require 'rack'
 require 'hashie'
 require 'hashery'
+require 'sanitize'
 
 require 'chargify2/utils'
 require 'chargify2/direct'
