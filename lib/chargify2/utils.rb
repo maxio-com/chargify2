@@ -28,5 +28,23 @@ module Chargify2
       word.downcase!
       word
     end
+
+    def self.sanitize_response(response_hash)
+      return response_hash unless response_hash.is_a? Array
+      response_hash.map { |rh| self.sanitize(rh) }
+    end
+
+    private
+
+    def self.sanitize(hash)
+      hash.each do |key, value|
+        hash[key] = case value
+          when String then Sanitize.fragment(value, Sanitize::Config::RELAXED)
+          when Hash   then self.sanitize(value)
+          else value
+        end
+      end
+      hash
+    end
   end
 end

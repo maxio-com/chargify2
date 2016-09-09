@@ -34,7 +34,7 @@ module Chargify2
       response_hash = response.send(representation.to_s.downcase.split('::').last) || {}
 
       self.create_response(
-        representation.new(response_hash),
+        representation.new(sanitized(response_hash)),
         response.meta
       )
     end
@@ -51,7 +51,7 @@ module Chargify2
       response_hash = response.send(plural_name) || {}
 
       self.create_response(
-        response_hash.map{|resource| representation.new(resource)},
+        sanitized(response_hash).map{|resource| representation.new(resource)},
         response.meta
       )
     end
@@ -68,7 +68,7 @@ module Chargify2
       response_hash = response.send(singular_name) || {}
 
       self.create_response(
-        representation.new(response_hash),
+        representation.new(sanitized(response_hash)),
         response.meta
       )
     end
@@ -85,7 +85,7 @@ module Chargify2
       response_hash = response.send(singular_name) || {}
 
       self.create_response(
-        representation.new(response_hash),
+        representation.new(sanitized(response_hash)),
         response.meta
       )
     end
@@ -102,7 +102,7 @@ module Chargify2
       response_hash = response.send(singular_name) || {}
 
       self.create_response(
-        representation.new(response_hash),
+        representation.new(sanitized(response_hash)),
         response.meta
       )
     end
@@ -141,6 +141,10 @@ module Chargify2
         options.merge!(:basic_auth => @auth)
       end
       options
+    end
+
+    def self.sanitized(response_hash)
+      Chargify2::Utils.sanitize_response(response_hash)
     end
   end
 end
