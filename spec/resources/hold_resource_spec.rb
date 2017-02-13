@@ -23,8 +23,8 @@ module Chargify2
 
         it "returns a Hold representation" do
           WebMock.stub_request(:post, client_authenticated_uri(client, '/holds'))
-          hold_resource.create.should be_a(Response)
-          hold_resource.create({ subscription_id: 12345 }).resource.should be_a(Hold) # Subscription ?
+          hold_resource.create({ subscription_id: 12345 }).should be_a(Response)
+          hold_resource.create({ subscription_id: 12345 }).resource.should be_a(Hold)
         end
       end
     end
