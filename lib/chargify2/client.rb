@@ -76,6 +76,9 @@ module Chargify2
 
     def reason_codes
       Chargify2::ReasonCodeResource.new(self)
+
+    def holds
+      Chargify2::HoldResource.new(self)
     end
   end
 end
