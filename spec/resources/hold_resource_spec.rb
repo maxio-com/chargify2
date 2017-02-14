@@ -3,7 +3,7 @@ require 'spec_helper'
 module Chargify2
   describe HoldResource do
     it "has the correct path" do
-      expect(described_class.path).to eql('holds')
+      expect(described_class.path).to eql('subscriptions/:subscription_id/hold')
     end
 
     it "represents the Hold resource" do
@@ -15,16 +15,17 @@ module Chargify2
       let!(:hold_resource) { HoldResource.new(client) }
 
       describe '#create' do
-        it "performs a POST request to 'https://<api_login>:<api_password>@api.chargify.com/api/v2/holds' (with authentication)" do
-          WebMock.stub_request(:post, client_authenticated_uri(client, '/holds'))
-          hold_resource.create({ subscription_id: 12345 })
-          a_request(:post, client_authenticated_uri(client, '/holds')).should have_been_made.once
+        it "performs a POST request to 'https://<api_login>:<api_password>@api.chargify.com/api/v2/subscriptions/:id/hold' (with authentication)" do
+          WebMock.stub_request(:post, client_authenticated_uri(client, '/subscriptions/123/hold'))
+          hold_resource.create(nil, subscription_id: 123)
+          a_request(:post, client_authenticated_uri(client, '/subscriptions/123/hold')).should have_been_made.once
         end
 
         it "returns a Hold representation" do
-          WebMock.stub_request(:post, client_authenticated_uri(client, '/holds'))
-          hold_resource.create({ subscription_id: 12345 }).should be_a(Response)
-          hold_resource.create({ subscription_id: 12345 }).resource.should be_a(Hold)
+          WebMock.stub_request(:post, client_authenticated_uri(client, '/subscriptions/123/hold'))
+
+          hold_resource.create(nil, subscription_id: 123).should be_a(Response)
+          hold_resource.create(nil, subscription_id: 123).resource.should be_a(Hold)
         end
       end
     end

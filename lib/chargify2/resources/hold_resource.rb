@@ -1,7 +1,7 @@
 module Chargify2
   class HoldResource < Resource
     def self.path
-      'holds'
+      "subscriptions/:subscription_id/hold"
     end
 
     def self.representation
