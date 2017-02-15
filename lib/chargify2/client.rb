@@ -80,5 +80,9 @@ module Chargify2
     def holds
       Chargify2::HoldResource.new(self)
     end
+
+    def resumes
+      Chargify2::ResumeResource.new(self)
+    end
   end
 end

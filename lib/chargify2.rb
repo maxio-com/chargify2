@@ -32,6 +32,7 @@ require 'chargify2/representations/metadatum'
 require 'chargify2/representations/reason_codes'
 require 'chargify2/representations/reason_code'
 require 'chargify2/representations/hold'
+require 'chargify2/representations/resume'
 
 # resources
 require 'chargify2/resources/call_resource'
@@ -47,3 +48,4 @@ require 'chargify2/resources/renewal_preview_resource'
 require 'chargify2/resources/metadatum_resource'
 require 'chargify2/resources/reason_code_resource'
 require 'chargify2/resources/hold_resource'
+require 'chargify2/resources/resume_resource'
