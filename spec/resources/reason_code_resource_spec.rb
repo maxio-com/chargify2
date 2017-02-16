@@ -7,7 +7,7 @@ module Chargify2
     end
 
     it "represents with the ReasonCode class" do
-      described_class.representation.should == ReasonCode
+      described_class.representation.should == ReasonCodes
     end
 
     context 'with an instance configured with a client' do
