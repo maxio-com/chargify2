@@ -6,7 +6,7 @@ module Chargify2
     end
 
     def self.representation
-      ReasonCodes
+      ReasonCode
     end
 
   end
