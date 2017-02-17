@@ -73,5 +73,9 @@ module Chargify2
     def metadata
       Chargify2::MetadatumResource.new(self)
     end
+
+    def reason_codes
+      Chargify2::ReasonCodeResource.new(self)
+    end
   end
 end
