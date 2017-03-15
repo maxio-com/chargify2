@@ -66,5 +66,13 @@ module Chargify2
     it "accesses a ProductResource through #products" do
       client.products.should be_a(ProductResource)
     end
+
+    it "accesses a HoldResource through #holds" do
+      client.holds.should be_a(HoldResource)
+    end
+
+    it "accesses a ResumeResource through #resumes" do
+      client.resumes.should be_a(ResumeResource)
+    end
   end
 end
