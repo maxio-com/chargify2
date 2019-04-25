@@ -9,12 +9,12 @@ module Chargify2
       Migration
     end
 
-    def preview(subscription_id, product_id, options = {})
-      self.class.preview(subscription_id, product_id, merge_options(options))
+    def preview(subscription_id, plan_attrs = {}, options = {})
+      self.class.preview(subscription_id, plan_attrs, merge_options(options))
     end
 
-    def self.preview(subscription_id, product_id, options = {})
-      options.merge!(body: {migration: { subscription_id: subscription_id, product_id: product_id} }.to_json)
+    def self.preview(subscription_id, plan_attrs, options = {})
+      options.merge!(body: { migration: { subscription_id: subscription_id }.merge!(plan_attrs) }.to_json)
       response = post("/#{path}/preview", options)
       response_hash = response[representation.to_s.downcase.split('::').last] || {}
 
@@ -25,4 +25,3 @@ module Chargify2
     end
   end
 end
-
