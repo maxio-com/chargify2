@@ -17,7 +17,7 @@ module Chargify2
       describe '#preview' do
         it "performs a POST request to 'https://<api_login>:<api_password>@api.chargify.com/api/v2/migrations/preview' (with authentication)" do
           WebMock.stub_request(:post, client_authenticated_uri(client, '/migrations/preview'))
-          described_class.preview(nil, subscription_id: 123, product_id: 1)
+          described_class.preview(subscription_id: 123, product_id: 1)
           a_request(:post, client_authenticated_uri(client, '/migrations/preview')).should have_been_made.once
         end
       end
