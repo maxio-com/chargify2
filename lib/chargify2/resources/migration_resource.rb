@@ -1,6 +1,5 @@
 module Chargify2
   class MigrationResource < Resource
-
     def self.path
       'migrations'
     end
@@ -9,20 +8,20 @@ module Chargify2
       Migration
     end
 
-    def preview(subscription_id, product_id, options = {})
-      self.class.preview(subscription_id, product_id, merge_options(options))
+    def preview(migration_params, options = {})
+      self.class.preview(migration_params, merge_options(options))
     end
 
-    def self.preview(subscription_id, product_id, options = {})
-      options.merge!(body: {migration: { subscription_id: subscription_id, product_id: product_id} }.to_json)
+    def self.preview(migration_params, options = {})
+      options.merge!(body: { migration: migration_params }.to_json)
       response = post("/#{path}/preview", options)
+      response = Chargify2::Utils.deep_symbolize_keys(response.to_h)
       response_hash = response[representation.to_s.downcase.split('::').last] || {}
 
-      self.create_response(
-        representation.new(response_hash.symbolize_keys),
+      create_response(
+        representation.new(response_hash),
         response['meta']
       )
     end
   end
 end
-

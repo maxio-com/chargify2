@@ -46,6 +46,10 @@ module Chargify2
       Chargify2::ProductResource.new(self)
     end
 
+    def offers
+      Chargify2::OfferResource.new(self)
+    end
+
     def statements
       Chargify2::StatementResource.new(self)
     end
