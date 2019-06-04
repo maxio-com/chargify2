@@ -11,7 +11,7 @@ module Chargify2
 
     def self.create(body, options = {})
       assembled_path = assemble_path(options)
-      options.merge!(:body => { coupons: body }.to_json)
+      options.merge!(body: { coupons: body }.to_json)
       response = post("/#{assembled_path}", options)
       response = Chargify2::Utils.deep_symbolize_keys(response.to_h)
       response_hash = response.coupons || {}
