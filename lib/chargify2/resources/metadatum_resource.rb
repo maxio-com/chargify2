@@ -22,7 +22,7 @@ module Chargify2
 
     def self.update_all(metadata_array, options = {})
       assembled_path = assemble_path(options)
-      options.merge!(body: { metadata: metadata_array, id: options[:resource_id], resource_type: options[:resource_type] }.to_json)
+      options.merge!(body: { metadata: metadata_array, resource_id: options[:resource_id], resource_type: options[:resource_type] }.to_json)
       response = put("/#{assembled_path}", options)
       response = Chargify2::Utils.deep_symbolize_keys(response.to_h)
       response_hash = response.metadata || {}
