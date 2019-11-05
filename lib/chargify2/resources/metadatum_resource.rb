@@ -1,7 +1,7 @@
 module Chargify2
   class MetadatumResource < Resource
     def self.path
-      ":resource_type/:id/metadata"
+      ":resource_type/:resource_id/metadata"
     end
 
     def self.representation
