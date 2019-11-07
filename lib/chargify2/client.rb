@@ -89,5 +89,9 @@ module Chargify2
     def resumes
       Chargify2::ResumeResource.new(self)
     end
+
+    def coupons
+      Chargify2::CouponResource.new(self)
+    end
   end
 end
