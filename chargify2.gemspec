@@ -4,7 +4,7 @@ Gem::Specification.new do |s|
   s.rubygems_version = '1.6.2'
 
   s.name    = 'chargify2'
-  s.version = '0.2-internal'
+  s.version = '0.2-internal-2'
   s.date    = '2011-10-28'
   s.summary = %q{Chargify API V2 Ruby Wrapper}
   s.description = ''
