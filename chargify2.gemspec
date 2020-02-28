@@ -23,7 +23,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency('httparty', '>= 0')
 
   # Development Dependencies
-  s.add_development_dependency('rake', '~> 0.9.2.2')
+  s.add_development_dependency('rake', '~> 12.3.3')
   s.add_development_dependency('rspec', '~> 2.11.0')
   s.add_development_dependency('capybara', '>= 0')
   s.add_development_dependency('vcr', '>= 0')
