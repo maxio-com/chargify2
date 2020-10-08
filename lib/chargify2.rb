@@ -35,6 +35,7 @@ require 'chargify2/representations/reason_code'
 require 'chargify2/representations/hold'
 require 'chargify2/representations/resume'
 require 'chargify2/representations/coupon'
+require 'chargify2/representations/subscription/cancellation_data'
 
 # resources
 require 'chargify2/resources/call_resource'
@@ -53,3 +54,4 @@ require 'chargify2/resources/reason_code_resource'
 require 'chargify2/resources/hold_resource'
 require 'chargify2/resources/resume_resource'
 require 'chargify2/resources/coupon_resource'
+require 'chargify2/resources/subscription/cancellation_data_resource'
