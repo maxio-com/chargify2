@@ -93,5 +93,9 @@ module Chargify2
     def coupons
       Chargify2::CouponResource.new(self)
     end
+
+    def subscription_cancellation_data
+      Chargify2::Subscription::CancellationDataResource.new(self)
+    end
   end
 end
