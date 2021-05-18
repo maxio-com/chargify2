@@ -118,10 +118,14 @@ module Chargify2
     end
 
     describe "#to_form_inputs" do
+      before do
+        Capybara.ignore_hidden_elements = false
+      end
+
       context "with no timestamp, nonce, nor data" do
         it "outputs 2 hidden form inputs - one for the api_id and one for the signature" do
           sp = Direct::SecureParameters.new({}, client)
-          form = Capybara::Node::Simple.new(sp.to_form_inputs)
+          form = Capybara.string(sp.to_form_inputs)
 
           form.should have_selector("input", :count => 2)
           form.should have_selector("input[type='hidden'][name='secure[api_id]'][value='#{client.api_id}']", :count => 1)
