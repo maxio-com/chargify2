@@ -4,7 +4,7 @@ Gem::Specification.new do |s|
   s.rubygems_version = '1.6.2'
 
   s.name    = 'chargify2'
-  s.version = '0.2-internal-2'
+  s.version = '0.2-internal-3'
   s.date    = '2011-10-28'
   s.summary = %q{Chargify API V2 Ruby Wrapper}
   s.description = ''
@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
   s.require_paths = %w[lib]
 
   # Runtime Dependencies
-  s.add_runtime_dependency('rack', '>= 0')
+  s.add_runtime_dependency('rack', '~> 2.2.3')
   s.add_runtime_dependency('hashery', '~> 2.1.0')
   s.add_runtime_dependency('hashie', '>= 0')
   s.add_runtime_dependency('httparty')
@@ -30,6 +30,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency('capybara', '>= 0')
   s.add_development_dependency('vcr', '>= 0')
   s.add_development_dependency('webmock', '>= 0')
-  s.add_development_dependency('yard', '~> 0.8.0')
+  s.add_development_dependency('yard', '~> 0.9.34')
   s.add_development_dependency('pry')
 end
