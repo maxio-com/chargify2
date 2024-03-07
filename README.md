@@ -1,6 +1,8 @@
 Chargify API V2 Ruby Wrapper [![build status](https://travis-ci.org/chargify/chargify2.png?branch=master)](http://travis-ci.org/chargify/chargify2)
 ============================
 
+**DEPRECATION WARNING:** This version of the Chargify API V2 Ruby Wrapper is no longer being actively maintained and may not support the latest features or security updates. Please consider using an alternative solution.
+
 This gem is meant to be used with the [Chargify Direct API](http://docs.chargify.com/chargify-direct-introduction).
 
 You'll need Chargify Direct credentials to interact with the Chargify V2
